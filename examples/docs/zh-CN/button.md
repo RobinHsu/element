@@ -1,11 +1,11 @@
 ## Button 按钮
 常用的操作按钮。
 
-### 基础用法
+### 基础用法 <i class="red">*</i>
 
 基础的按钮用法。
 
-button为inline-block元素，主要处理换行符
+button为inline-block元素，注意处理换行符
 
 :::demo 使用`type`、`plain`、`round`和`circle`属性来定义 Button 的样式。
 
@@ -48,7 +48,7 @@ button为inline-block元素，主要处理换行符
 ```
 :::
 
-### 禁用状态
+### 禁用状态 <i class="red">*</i>
 
 按钮不可用状态。
 
@@ -75,7 +75,7 @@ button为inline-block元素，主要处理换行符
 ```
 :::
 
-### 文字按钮
+### 文字按钮 <i class="red">*</i>
 
 没有边框和背景色的按钮。
 
@@ -120,7 +120,7 @@ button为inline-block元素，主要处理换行符
 ```
 :::
 
-### 加载中
+### 加载中 <i class="red">*</i>
 
 点击按钮后进行数据加载操作，在按钮上显示加载状态。
 

@@ -146,6 +146,10 @@ button, input, select, textarea {
       color: #445368;
     }
   }
+
+  .red {
+    color: #FE6C6F;
+  }
 }
 .demo {
   margin: 20px 0;
