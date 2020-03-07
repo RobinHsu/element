@@ -1,6 +1,7 @@
 @import 'variable';
 @import '../../../common/packages/button';
 
+// customize
 .el-button:not(.is-circle) {
   min-width: $--button-min-width;
 }

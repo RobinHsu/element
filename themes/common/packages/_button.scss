@@ -21,7 +21,7 @@
   font-weight: $--button-font-weight;
   @include utils-user-select(none);
   & + & {
-    margin-left: 10px;
+    margin-left: $--button-spacer;
   }
 
   @include button-size(

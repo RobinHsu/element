@@ -7,3 +7,17 @@
 @import '../common/variable/disabled';
 @import '../common/variable/icon';
 @import '../common/variable/break-point';
+
+// Spacer
+
+$spacer: 16px !default;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.5,
+  2: $spacer,
+  3: $spacer * 1.5,
+  4: $spacer * 2,
+) !default;
+
+$--spacer-base: $spacer !default;
+$--spacer-small: map-get($spacers, 1);
