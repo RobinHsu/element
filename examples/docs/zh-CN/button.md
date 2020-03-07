@@ -5,10 +5,12 @@
 
 基础的按钮用法。
 
+button为inline-block元素，主要处理换行符
+
 :::demo 使用`type`、`plain`、`round`和`circle`属性来定义 Button 的样式。
 
 ```html
-<el-row>
+<el-row style="font-size: 0;">
   <el-button>默认按钮</el-button>
   <el-button type="primary">主要按钮</el-button>
   <el-button type="success">成功按钮</el-button>
@@ -17,7 +19,7 @@
   <el-button type="danger">危险按钮</el-button>
 </el-row>
 
-<el-row>
+<el-row style="font-size: 0;">
   <el-button plain>朴素按钮</el-button>
   <el-button type="primary" plain>主要按钮</el-button>
   <el-button type="success" plain>成功按钮</el-button>
@@ -26,16 +28,16 @@
   <el-button type="danger" plain>危险按钮</el-button>
 </el-row>
 
-<el-row>
+<!-- <el-row>
   <el-button round>圆角按钮</el-button>
   <el-button type="primary" round>主要按钮</el-button>
   <el-button type="success" round>成功按钮</el-button>
   <el-button type="info" round>信息按钮</el-button>
   <el-button type="warning" round>警告按钮</el-button>
   <el-button type="danger" round>危险按钮</el-button>
-</el-row>
+</el-row> -->
 
-<el-row>
+<el-row style="font-size: 0;">
   <el-button icon="el-icon-search" circle></el-button>
   <el-button type="primary" icon="el-icon-edit" circle></el-button>
   <el-button type="success" icon="el-icon-check" circle></el-button>
