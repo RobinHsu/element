@@ -64,3 +64,4 @@ import './packages/cascader-panel';
 import './packages/avatar';
 import './packages/drawer';
 import './packages/popconfirm';
+import './packages/reset';

@@ -6,4 +6,8 @@
 $--card-border-color: $--border-color-lighter !default;
 $--card-border-radius: 4px !default;
 /// padding||Spacing|3
-$--card-padding: 20px !default;
+$--card-padding: 0 !default;
+
+$--card-wrapper-padding: $--spacer-base;
+
+$--card-header-line-height: 46px;

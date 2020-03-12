@@ -15,3 +15,14 @@ $--table-current-row-background-color: $--color-primary-light-9 !default;
 /// color||Color|0
 $--table-header-background-color: $--color-white !default;
 $--table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, 0.12) !default;
+
+$--table-wrapper-border-color: $--border-color-base;
+$--table-wrapper-border-width: 0;
+$--table-wrapper-border: none;
+$--table-border-radius: 0;
+
+$--table-row-height: 36px;
+
+$--table-cell-padding: $--spacer-base;
+
+$--table-header-font-weight: 500;

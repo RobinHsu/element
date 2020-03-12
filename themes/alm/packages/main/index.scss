@@ -1,2 +1,6 @@
 @import 'variable';
 @import '../../../common/packages/main';
+
+@include b(main) {
+  overflow: scroll;
+}

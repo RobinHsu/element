@@ -2,4 +2,4 @@
 
 /* Main
 --------------------------*/
-$--main-padding: 20px !default;
+$--main-padding: $--spacer-base ($--spacer-base - 12px) 0 $--spacer-base !default;

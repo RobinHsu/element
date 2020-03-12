@@ -12,3 +12,11 @@ $--tab-header-fill-hover: rgba($--color-black, 0.06) !default;
 $--tab-vertical-header-width: 90px !default;
 $--tab-vertical-header-count-color: $--color-white !default;
 $--tab-vertical-header-count-fill: $--color-text-secondary !default;
+
+$--tab-item-height: 30px;
+$--tab-item-font-size: $--font-size-small;
+$--tab-item-padding: 0 14px;
+
+$--tab-active-color: $--color-primary;
+
+$--tab-bar-width: 2px;
