@@ -26,6 +26,7 @@
           <div
             class="el-form-item__error"
             :class="{
+              'is-empty': isEmpty,
               'el-form-item__error--inline': typeof inlineMessage === 'boolean'
                 ? inlineMessage
                 : (elForm && elForm.inlineMessage || false)
@@ -173,6 +174,9 @@
       },
       sizeClass() {
         return this.elFormItemSize || (this.$ELEMENT || {}).size;
+      },
+      isEmpty() {
+        return !this.fieldValue;
       }
     },
     data() {
@@ -275,6 +279,10 @@
         this.validate('blur');
       },
       onFieldChange() {
+        if (this.validateMessage) {
+          this.clearValidate();
+        }
+
         if (this.validateDisabled) {
           this.validateDisabled = false;
           return;

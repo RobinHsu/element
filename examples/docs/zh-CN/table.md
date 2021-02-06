@@ -23,6 +23,7 @@
         width="180">
       </el-table-column>
       <el-table-column
+        width="100"
         prop="address"
         label="地址">
       </el-table-column>
@@ -50,6 +51,45 @@
             name: '王小虎',
             address: '上海市普陀区金沙江路 1516 弄'
           }]
+        }
+      }
+    }
+  </script>
+```
+:::
+
+### 暂无数据
+
+基础的表格展示用法。
+
+:::demo 当`el-table`元素中注入`data`对象数组后，在`el-table-column`中用`prop`属性来对应对象中的键名即可填入数据，用`label`属性来定义表格的列名。可以使用`width`属性来定义列宽。
+```html
+  <template>
+    <el-table
+      :data="tableData"
+      style="width: 100%">
+      <el-table-column
+        prop="date"
+        label="日期"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址">
+      </el-table-column>
+    </el-table>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          tableData: []
         }
       }
     }

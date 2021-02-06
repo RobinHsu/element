@@ -17,14 +17,16 @@
     'borderBase': '$--border-color-base',
     'borderLight': '$--border-color-light',
     'borderLighter': '$--border-color-lighter',
-    'borderExtraLight': '$--border-color-extra-light'
+    'borderExtraLight': '$--border-color-extra-light',
+    'borderExtraLighter': '$--border-color-extra-lighter',
+    'backgroundColorBase': '$--background-color-base'
   };
   const original = {
-    primary: '#409EFF',
-    success: '#67C23A',
-    warning: '#E6A23C',
-    danger: '#F56C6C',
-    info: '#909399',
+    primary: '#1890ff',
+    success: '#52c41a',
+    warning: '#ffaf0f',
+    danger: '#ff4d4f',
+    info: '#888888',
     white: '#FFFFFF',
     black: '#000000',
     textPrimary: '#303133',
@@ -34,7 +36,9 @@
     borderBase: '#DCDFE6',
     borderLight: '#E4E7ED',
     borderLighter: '#EBEEF5',
-    borderExtraLight: '#F2F6FC'
+    borderExtraLight: '#F2F2F2',
+    borderExtraLighter: '#E6E6E6',
+    backgroundColorBase: '#F0F2F5',
   }
   export default {
     created() {
@@ -101,7 +105,7 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
 <el-row :gutter="12">
   <el-col :span="10" :xs="{span: 12}">
     <div class="demo-color-box" :style="{ background: primary }">Brand Color
-      <div class="value">#409EFF</div>
+      <div class="value">#1890ff</div>
       <div class="bg-color-sub" :style="{ background: tintColor(primary, 0.9) }">
         <div
           class="bg-blue-sub-item"
@@ -122,7 +126,7 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
   <el-col :span="6" :xs="{span: 12}">
     <div class="demo-color-box"
     :style="{ background: success }"
-    >Success<div class="value">#67C23A</div>
+    >Success<div class="value">#64BF37</div>
       <div 
         class="bg-color-sub"
       >
@@ -130,7 +134,7 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
           class="bg-success-sub-item" 
           v-for="(item, key) in Array(2)"
           :key="key"
-          :style="{ background: tintColor(success, (key + 8) / 10) }"
+          :style="{ background: tintColor(success, (key * 3 + 4) / 10) }"
             >
         </div>
       </div>
@@ -139,7 +143,7 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
   <el-col :span="6" :xs="{span: 12}">
     <div class="demo-color-box"
     :style="{ background: warning }"
-    >Warning<div class="value">#E6A23C</div>
+    >Warning<div class="value">#F29F10</div>
       <div 
           class="bg-color-sub"
         >
@@ -147,7 +151,7 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
           class="bg-success-sub-item" 
           v-for="(item, key) in Array(2)"
           :key="key"
-          :style="{ background: tintColor(warning, (key + 8) / 10) }"
+          :style="{ background: tintColor(warning, (key * 3 + 4) / 10) }"
             >
         </div>
       </div>
@@ -156,7 +160,7 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
   <el-col :span="6" :xs="{span: 12}">
     <div class="demo-color-box"
     :style="{ background: danger }"
-    >Danger<div class="value">#F56C6C</div>
+    >Danger<div class="value">#FF6167</div>
       <div 
           class="bg-color-sub"
         >
@@ -164,7 +168,7 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
           class="bg-success-sub-item" 
           v-for="(item, key) in Array(2)"
           :key="key"
-          :style="{ background: tintColor(danger, (key + 8) / 10) }"
+          :style="{ background: tintColor(danger, (key * 3 + 4) / 10) }"
             >
         </div>
       </div>
@@ -173,7 +177,7 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
   <el-col :span="6" :xs="{span: 12}">
     <div class="demo-color-box"
     :style="{ background: info }"
-    >Info<div class="value">#909399</div>
+    >Info<div class="value">#888888</div>
       <div 
           class="bg-color-sub"
         >
@@ -181,7 +185,7 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
           class="bg-success-sub-item" 
           v-for="(item, key) in Array(2)"
           :key="key"
-          :style="{ background: tintColor(info, (key + 8) / 10) }"
+          :style="{ background: tintColor(info, (key * 3 + 4) / 10) }"
             >
         </div>
       </div>
@@ -217,14 +221,20 @@ Element 主要品牌颜色是鲜艳、友好的蓝色。
       :style="{ background: borderBase }"
       >一级边框<div class="value">{{borderBase}}</div></div>
       <div class="demo-color-box demo-color-box-other demo-color-box-lite"
-      :style="{ background: borderLight }"
-      >二级边框<div class="value">{{borderLight}}</div></div>
-      <div class="demo-color-box demo-color-box-other demo-color-box-lite"
       :style="{ background: borderLighter }"
-      >三级边框<div class="value">{{borderLighter}}</div></div>
+      >二级边框<div class="value">{{borderLighter}}</div></div>
+      <div class="demo-color-box demo-color-box-other demo-color-box-lite"
+      :style="{ background: borderExtraLighter}"
+      >分割线<div class="value">{{borderExtraLighter}}</div></div>
       <div class="demo-color-box demo-color-box-other demo-color-box-lite"
       :style="{ background: borderExtraLight }"
-      >四级边框<div class="value">{{borderExtraLight}}</div></div>
+      >表格背景<div class="value">{{borderExtraLight}}</div></div>
+      <div class="demo-color-box demo-color-box-other demo-color-box-lite"
+      :style="{ background: borderLight }"
+      >分割线<div class="value">{{borderLight}}</div></div>
+      <div class="demo-color-box demo-color-box-other demo-color-box-lite"
+      :style="{ background: backgroundColorBase}"
+      >表格背景<div class="value">{{backgroundColorBase}}</div></div>
     </div>
   </el-col>
   <el-col :span="6" :xs="{span: 12}">
