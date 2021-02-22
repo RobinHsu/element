@@ -22,8 +22,13 @@ var tabEvent;
 
 aria.Dialog = function(dialog, focusAfterClosed, focusFirst) {
   this.dialogNode = dialog;
-  if (this.dialogNode === null || this.dialogNode.getAttribute('role') !== 'dialog') {
-    throw new Error('Dialog() requires a DOM element with ARIA role of dialog.');
+  if (
+    this.dialogNode === null ||
+    this.dialogNode.getAttribute('role') !== 'dialog'
+  ) {
+    throw new Error(
+      'Dialog() requires a DOM element with ARIA role of dialog.'
+    );
   }
 
   if (typeof focusAfterClosed === 'string') {
@@ -49,7 +54,7 @@ aria.Dialog = function(dialog, focusAfterClosed, focusFirst) {
   }
 
   this.lastFocus = document.activeElement;
-  tabEvent = (e) => {
+  tabEvent = e => {
     this.trapFocus(e);
   };
   this.addListeners();

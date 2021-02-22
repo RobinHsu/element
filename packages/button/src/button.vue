@@ -13,8 +13,8 @@
         'is-loading': loading,
         'is-plain': plain,
         'is-round': round,
-        'is-circle': circle
-      }
+        'is-circle': circle,
+      },
     ]"
   >
     <i class="el-icon-loading" v-if="loading"></i>
@@ -23,56 +23,56 @@
   </button>
 </template>
 <script>
-  export default {
-    name: 'ElButton',
+export default {
+  name: 'ElButton',
 
-    inject: {
-      elForm: {
-        default: ''
-      },
-      elFormItem: {
-        default: ''
-      }
+  inject: {
+    elForm: {
+      default: '',
     },
-
-    props: {
-      type: {
-        type: String,
-        default: 'default'
-      },
-      size: String,
-      icon: {
-        type: String,
-        default: ''
-      },
-      nativeType: {
-        type: String,
-        default: 'button'
-      },
-      loading: Boolean,
-      disabled: Boolean,
-      plain: Boolean,
-      autofocus: Boolean,
-      round: Boolean,
-      circle: Boolean
+    elFormItem: {
+      default: '',
     },
+  },
 
-    computed: {
-      _elFormItemSize() {
-        return (this.elFormItem || {}).elFormItemSize;
-      },
-      buttonSize() {
-        return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
-      },
-      buttonDisabled() {
-        return this.disabled || (this.elForm || {}).disabled;
-      }
+  props: {
+    type: {
+      type: String,
+      default: 'default',
     },
+    size: String,
+    icon: {
+      type: String,
+      default: '',
+    },
+    nativeType: {
+      type: String,
+      default: 'button',
+    },
+    loading: Boolean,
+    disabled: Boolean,
+    plain: Boolean,
+    autofocus: Boolean,
+    round: Boolean,
+    circle: Boolean,
+  },
 
-    methods: {
-      handleClick(evt) {
-        this.$emit('click', evt);
-      }
-    }
-  };
+  computed: {
+    _elFormItemSize() {
+      return (this.elFormItem || {}).elFormItemSize;
+    },
+    buttonSize() {
+      return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
+    },
+    buttonDisabled() {
+      return this.disabled || (this.elForm || {}).disabled;
+    },
+  },
+
+  methods: {
+    handleClick(evt) {
+      this.$emit('click', evt);
+    },
+  },
+};
 </script>

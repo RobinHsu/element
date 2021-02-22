@@ -13,7 +13,7 @@ const Message = function(options) {
   options = options || {};
   if (typeof options === 'string') {
     options = {
-      message: options
+      message: options,
     };
   }
   let userOnClose = options.onClose;
@@ -23,7 +23,7 @@ const Message = function(options) {
     Message.close(id, userOnClose);
   };
   instance = new MessageConstructor({
-    data: options
+    data: options,
   });
   instance.id = id;
   if (isVNode(instance.message)) {
@@ -47,7 +47,7 @@ const Message = function(options) {
   Message[type] = options => {
     if (typeof options === 'string') {
       options = {
-        message: options
+        message: options,
       };
     }
     options.type = type;
@@ -71,7 +71,7 @@ Message.close = function(id, userOnClose) {
     }
   }
   if (len <= 1 || index === -1 || index > instances.length - 1) return;
-  for (let i = index; i < len - 1 ; i++) {
+  for (let i = index; i < len - 1; i++) {
     let dom = instances[i].$el;
     dom.style['top'] =
       parseInt(dom.style['top'], 10) - removedHeight - 16 + 'px';

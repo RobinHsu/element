@@ -1,5 +1,5 @@
 <template>
-  <div class="main-configurator" ref='configurator'>
+  <div class="main-configurator" ref="configurator">
     <action-panel
       :selectOptions="selectOptions"
       :userConfigHistory="userConfigHistory"
@@ -36,13 +36,13 @@ import actionPanel from './action';
 import {
   filterConfigType,
   filterGlobalValue,
-  getActionDisplayName
+  getActionDisplayName,
 } from './utils/utils.js';
 import Shortcut from './shortcut';
 import {
   ACTION_APPLY_THEME,
   ACTION_DOWNLOAD_THEME,
-  ACTION_COMPONECT_SELECT
+  ACTION_COMPONECT_SELECT,
 } from '../theme/constant.js';
 
 export default {
@@ -50,11 +50,11 @@ export default {
     themeConfig: Object,
     previewConfig: Object,
     isOfficial: Boolean,
-    onUserConfigUpdate: Function
+    onUserConfigUpdate: Function,
   },
   components: {
     mainPanel,
-    actionPanel
+    actionPanel,
   },
   data() {
     return {
@@ -63,20 +63,20 @@ export default {
       currentConfig: null,
       userConfig: {
         global: {},
-        local: {}
+        local: {},
       },
       userConfigHistory: [],
       userConfigRedoHistory: [],
       hasLocalConfig: false,
       selectOptions: [],
-      selectedComponent: 'color'
+      selectedComponent: 'color',
     };
   },
   mixins: [Shortcut],
   computed: {
     globalValue() {
       return filterGlobalValue(this.defaultConfig, this.userConfig);
-    }
+    },
   },
   mounted() {
     ga('send', 'event', 'ThemeConfigurator', 'Init');
@@ -94,7 +94,7 @@ export default {
       if (this.init) return;
       this.$nextTick(() => {
         const loading = this.$loading({
-          target: this.$refs.configurator
+          target: this.$refs.configurator,
         });
         let defaultConfig;
         getVars()
@@ -118,22 +118,22 @@ export default {
       });
     },
     setSelectOption() {
-      this.selectOptions = this.defaultConfig.map((config) => ({
-        label: config.name.charAt(0).toUpperCase() + config.name.slice(1),
-        value: config.name
-      })).sort((a, b) => {
-        const A = a.label;
-        const B = b.label;
-        if (A < B) return -1;
-        if (A > B) return 1;
-        return 0;
-      });
+      this.selectOptions = this.defaultConfig
+        .map(config => ({
+          label: config.name.charAt(0).toUpperCase() + config.name.slice(1),
+          value: config.name,
+        }))
+        .sort((a, b) => {
+          const A = a.label;
+          const B = b.label;
+          if (A < B) return -1;
+          if (A > B) return 1;
+          return 0;
+        });
     },
     filterCurrentConfig() {
       this.currentConfig = this.defaultConfig.find(config => {
-        return (
-          config.name === this.selectedComponent
-        );
+        return config.name === this.selectedComponent;
       });
     },
     userConfigChange(e) {
@@ -151,12 +151,16 @@ export default {
       this.userConfigHistory = [];
       this.userConfig = {
         global: {},
-        local: {}
+        local: {},
       };
       this.onAction();
     },
     onDownload() {
-      bus.$emit(ACTION_DOWNLOAD_THEME, this.userConfig, this.previewConfig.name);
+      bus.$emit(
+        ACTION_DOWNLOAD_THEME,
+        this.userConfig,
+        this.previewConfig.name
+      );
     },
     onAction() {
       this.onUserConfigUpdate(this.userConfig);
@@ -180,7 +184,7 @@ export default {
       bus.$emit(ACTION_COMPONECT_SELECT, val);
       this.selectedComponent = val;
       this.filterCurrentConfig();
-    }
+    },
   },
   watch: {
     themeConfig: {
@@ -188,8 +192,8 @@ export default {
         if (!oldVal.globnal) {
           this.userConfig = val;
         }
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

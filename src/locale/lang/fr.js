@@ -2,7 +2,7 @@ export default {
   el: {
     colorpicker: {
       confirm: 'OK',
-      clear: 'Effacer'
+      clear: 'Effacer',
     },
     datepicker: {
       now: 'Maintenant',
@@ -41,7 +41,7 @@ export default {
         wed: 'Mer',
         thu: 'Jeu',
         fri: 'Ven',
-        sat: 'Sam'
+        sat: 'Sam',
       },
       months: {
         jan: 'Jan',
@@ -55,47 +55,47 @@ export default {
         sep: 'Sep',
         oct: 'Oct',
         nov: 'Nov',
-        dec: 'Déc'
-      }
+        dec: 'Déc',
+      },
     },
     select: {
       loading: 'Chargement',
       noMatch: 'Aucune correspondance',
       noData: 'Aucune donnée',
-      placeholder: 'Choisir'
+      placeholder: 'Choisir',
     },
     cascader: {
       noMatch: 'Aucune correspondance',
       loading: 'Chargement',
       placeholder: 'Choisir',
-      noData: 'Aucune donnée'
+      noData: 'Aucune donnée',
     },
     pagination: {
       goto: 'Aller à',
       pagesize: '/page',
       total: 'Total {total}',
-      pageClassifier: ''
+      pageClassifier: '',
     },
     messagebox: {
       confirm: 'Confirmer',
       cancel: 'Annuler',
-      error: 'Erreur'
+      error: 'Erreur',
     },
     upload: {
       deleteTip: 'Cliquer sur supprimer pour retirer le fichier',
       delete: 'Supprimer',
       preview: 'Aperçu',
-      continue: 'Continuer'
+      continue: 'Continuer',
     },
     table: {
       emptyText: 'Aucune donnée',
       confirmFilter: 'Confirmer',
       resetFilter: 'Réinitialiser',
       clearFilter: 'Tous',
-      sumText: 'Somme'
+      sumText: 'Somme',
     },
     tree: {
-      emptyText: 'Aucune donnée'
+      emptyText: 'Aucune donnée',
     },
     transfer: {
       noMatch: 'Aucune correspondance',
@@ -103,17 +103,17 @@ export default {
       titles: ['Liste 1', 'Liste 2'],
       filterPlaceholder: 'Entrer un mot clef',
       noCheckedFormat: '{total} elements',
-      hasCheckedFormat: '{checked}/{total} coché(s)'
+      hasCheckedFormat: '{checked}/{total} coché(s)',
     },
     image: {
-      error: 'FAILED' // to be translated
+      error: 'FAILED', // to be translated
     },
     pageHeader: {
-      title: 'Back' // to be translated
+      title: 'Back', // to be translated
     },
     popconfirm: {
       confirmButtonText: 'Yes', // to be translated
-      cancelButtonText: 'No' // to be translated
-    }
-  }
+      cancelButtonText: 'No', // to be translated
+    },
+  },
 };

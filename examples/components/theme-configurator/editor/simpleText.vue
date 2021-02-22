@@ -2,15 +2,11 @@
   <section class="config" :key="displayName">
     <div class="config-label">
       <el-tooltip :content="displayName" placement="top">
-        <span>{{displayKeyName}}</span>
+        <span>{{ displayKeyName }}</span>
       </el-tooltip>
     </div>
     <div class="config-content">
-      <theme-input 
-        :val="value"
-        size="medium"
-        @change="onChange"
-      ></theme-input>
+      <theme-input :val="value" size="medium" @change="onChange"></theme-input>
     </div>
   </section>
 </template>
@@ -21,21 +17,21 @@ import Mixin from './mixin';
 
 export default {
   components: {
-    themeInput: Input
+    themeInput: Input,
   },
   data() {
     return {
-      value: ''
+      value: '',
     };
   },
   mixins: [Mixin],
   watch: {
-    'mergedValue': {
+    mergedValue: {
       immediate: true,
-      handler(value) {
+      handler() {
         this.value = this.mergedValue;
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

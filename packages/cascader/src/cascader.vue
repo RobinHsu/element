@@ -1,17 +1,18 @@
 <template>
+  <!-- eslint-disable vue/valid-v-model -->
   <div
     ref="reference"
     :class="[
       'el-cascader',
       realSize && `el-cascader--${realSize}`,
-      { 'is-disabled': isDisabled }
+      { 'is-disabled': isDisabled },
     ]"
     v-clickoutside="() => toggleDropDownVisible(false)"
     @mouseenter="inputHover = true"
     @mouseleave="inputHover = false"
     @click="() => toggleDropDownVisible(readonly ? undefined : true)"
-    @keydown="handleKeyDown">
-
+    @keydown="handleKeyDown"
+  >
     <el-input
       ref="input"
       v-model="multiple ? presentText : inputValue"
@@ -23,22 +24,25 @@
       :class="{ 'is-focus': dropDownVisible }"
       @focus="handleFocus"
       @blur="handleBlur"
-      @input="handleInput">
+      @input="handleInput"
+    >
       <template slot="suffix">
         <i
           v-if="clearBtnVisible"
           key="clear"
           class="el-input__icon el-icon-circle-close"
-          @click.stop="handleClear"></i>
+          @click.stop="handleClear"
+        ></i>
         <i
           v-else
           key="arrow-down"
           :class="[
             'el-input__icon',
             'el-icon-arrow-down',
-            dropDownVisible && 'is-reverse'
+            dropDownVisible && 'is-reverse',
           ]"
-          @click.stop="toggleDropDownVisible()"></i>
+          @click.stop="toggleDropDownVisible()"
+        ></i>
       </template>
     </el-input>
 
@@ -51,7 +55,8 @@
         :hit="tag.hitState"
         :closable="tag.closable"
         disable-transitions
-        @close="deleteTag(index)">
+        @close="deleteTag(index)"
+      >
         <span>{{ tag.text }}</span>
       </el-tag>
       <input
@@ -62,14 +67,16 @@
         :placeholder="presentTags.length ? '' : placeholder"
         @input="e => handleInput(inputValue, e)"
         @click.stop="toggleDropDownVisible(true)"
-        @keydown.delete="handleDelete">
+        @keydown.delete="handleDelete"
+      />
     </div>
 
     <transition name="el-zoom-in-top" @after-leave="handleDropdownLeave">
       <div
         v-show="dropDownVisible"
         ref="popper"
-        :class="['el-popper', 'el-cascader__dropdown', popperClass]">
+        :class="['el-popper', 'el-cascader__dropdown', popperClass]"
+      >
         <el-cascader-panel
           ref="panel"
           v-show="!filtering"
@@ -79,7 +86,8 @@
           :border="false"
           :render-label="$scopedSlots.default"
           @expand-change="handleExpandChange"
-          @close="toggleDropDownVisible(false)"></el-cascader-panel>
+          @close="toggleDropDownVisible(false)"
+        ></el-cascader-panel>
         <el-scrollbar
           ref="suggestionPanel"
           v-if="filterable"
@@ -87,23 +95,27 @@
           tag="ul"
           class="el-cascader__suggestion-panel"
           view-class="el-cascader__suggestion-list"
-          @keydown.native="handleSuggestionKeyDown">
+          @keydown.native="handleSuggestionKeyDown"
+        >
           <template v-if="suggestions.length">
             <li
               v-for="(item, index) in suggestions"
               :key="item.uid"
               :class="[
                 'el-cascader__suggestion-item',
-                item.checked && 'is-checked'
+                item.checked && 'is-checked',
               ]"
               :tabindex="-1"
-              @click="handleSuggestionClick(index)">
+              @click="handleSuggestionClick(index)"
+            >
               <span>{{ item.text }}</span>
               <i v-if="item.checked" class="el-icon-check"></i>
             </li>
           </template>
           <slot v-else name="empty">
-            <li class="el-cascader__empty-text">{{ t('el.cascader.noMatch') }}</li>
+            <li class="el-cascader__empty-text">
+              {{ t('el.cascader.noMatch') }}
+            </li>
           </slot>
         </el-scrollbar>
       </div>
@@ -126,50 +138,53 @@ import { t } from 'element-ui/src/locale';
 import { isEqual, isEmpty, kebabCase } from 'element-ui/src/utils/util';
 import { isUndefined, isFunction } from 'element-ui/src/utils/types';
 import { isDef } from 'element-ui/src/utils/shared';
-import { addResizeListener, removeResizeListener } from 'element-ui/src/utils/resize-event';
+import {
+  addResizeListener,
+  removeResizeListener,
+} from 'element-ui/src/utils/resize-event';
 import debounce from 'throttle-debounce/debounce';
 
 const { keys: KeyCode } = AriaUtils;
 const MigratingProps = {
   expandTrigger: {
     newProp: 'expandTrigger',
-    type: String
+    type: String,
   },
   changeOnSelect: {
     newProp: 'checkStrictly',
-    type: Boolean
+    type: Boolean,
   },
   hoverThreshold: {
     newProp: 'hoverThreshold',
-    type: Number
-  }
+    type: Number,
+  },
 };
 
 const PopperMixin = {
   props: {
     placement: {
       type: String,
-      default: 'bottom-start'
+      default: 'bottom-start',
     },
     appendToBody: Popper.props.appendToBody,
     visibleArrow: {
       type: Boolean,
-      default: true
+      default: true,
     },
     arrowOffset: Popper.props.arrowOffset,
     offset: Popper.props.offset,
     boundariesPadding: Popper.props.boundariesPadding,
-    popperOptions: Popper.props.popperOptions
+    popperOptions: Popper.props.popperOptions,
   },
   methods: Popper.methods,
   data: Popper.data,
-  beforeDestroy: Popper.beforeDestroy
+  beforeDestroy: Popper.beforeDestroy,
 };
 
 const InputSizeMap = {
   medium: 36,
   small: 32,
-  mini: 28
+  mini: 28,
 };
 
 export default {
@@ -181,18 +196,18 @@ export default {
 
   inject: {
     elForm: {
-      default: ''
+      default: '',
     },
     elFormItem: {
-      default: ''
-    }
+      default: '',
+    },
   },
 
   components: {
     ElInput,
     ElTag,
     ElScrollbar,
-    ElCascaderPanel
+    ElCascaderPanel,
   },
 
   props: {
@@ -202,7 +217,7 @@ export default {
     size: String,
     placeholder: {
       type: String,
-      default: () => t('el.cascader.placeholder')
+      default: () => t('el.cascader.placeholder'),
     },
     disabled: Boolean,
     clearable: Boolean,
@@ -210,22 +225,22 @@ export default {
     filterMethod: Function,
     separator: {
       type: String,
-      default: ' / '
+      default: ' / ',
     },
     showAllLevels: {
       type: Boolean,
-      default: true
+      default: true,
     },
     collapseTags: Boolean,
     debounce: {
       type: Number,
-      default: 300
+      default: 300,
     },
     beforeFilter: {
       type: Function,
-      default: () => (() => {})
+      default: () => () => {},
     },
-    popperClass: String
+    popperClass: String,
   },
 
   data() {
@@ -240,7 +255,7 @@ export default {
       filtering: false,
       suggestions: [],
       inputInitialHeight: 0,
-      pressDeleteCount: 0
+      pressDeleteCount: 0,
     };
   },
 
@@ -250,9 +265,7 @@ export default {
       return this.size || _elFormItemSize || (this.$ELEMENT || {}).size;
     },
     tagSize() {
-      return ['small', 'mini'].indexOf(this.realSize) > -1
-        ? 'mini'
-        : 'small';
+      return ['small', 'mini'].indexOf(this.realSize) > -1 ? 'mini' : 'small';
     },
     isDisabled() {
       return this.disabled || (this.elForm || {}).disabled;
@@ -261,18 +274,16 @@ export default {
       const config = this.props || {};
       const { $attrs } = this;
 
-      Object
-        .keys(MigratingProps)
-        .forEach(oldProp => {
-          const { newProp, type } = MigratingProps[oldProp];
-          let oldValue = $attrs[oldProp] || $attrs[kebabCase(oldProp)];
-          if (isDef(oldProp) && !isDef(config[newProp])) {
-            if (type === Boolean && oldValue === '') {
-              oldValue = true;
-            }
-            config[newProp] = oldValue;
+      Object.keys(MigratingProps).forEach(oldProp => {
+        const { newProp, type } = MigratingProps[oldProp];
+        let oldValue = $attrs[oldProp] || $attrs[kebabCase(oldProp)];
+        if (isDef(oldProp) && !isDef(config[newProp])) {
+          if (type === Boolean && oldValue === '') {
+            oldValue = true;
           }
-        });
+          config[newProp] = oldValue;
+        }
+      });
 
       return config;
     },
@@ -286,7 +297,12 @@ export default {
       return !this.filterable || this.multiple;
     },
     clearBtnVisible() {
-      if (!this.clearable || this.isDisabled || this.filtering || !this.inputHover) {
+      if (
+        !this.clearable ||
+        this.isDisabled ||
+        this.filtering ||
+        !this.inputHover
+      ) {
         return false;
       }
 
@@ -296,7 +312,7 @@ export default {
     },
     panel() {
       return this.$refs.panel;
-    }
+    },
   },
 
   watch: {
@@ -329,7 +345,7 @@ export default {
       handler: function() {
         this.$nextTick(this.computePresentContent);
       },
-      deep: true
+      deep: true,
     },
     presentText(val) {
       this.inputValue = val;
@@ -339,15 +355,16 @@ export default {
         this.$nextTick(this.updateStyle);
       }
     },
-    filtering(val) {
+    filtering() {
       this.$nextTick(this.updatePopper);
-    }
+    },
   },
 
   mounted() {
     const { input } = this.$refs;
     if (input && input.$el) {
-      this.inputInitialHeight = input.$el.offsetHeight || InputSizeMap[this.realSize] || 40;
+      this.inputInitialHeight =
+        input.$el.offsetHeight || InputSizeMap[this.realSize] || 40;
     }
 
     if (!isEmpty(this.value)) {
@@ -383,13 +400,17 @@ export default {
     getMigratingConfig() {
       return {
         props: {
-          'expand-trigger': 'expand-trigger is removed, use `props.expandTrigger` instead.',
-          'change-on-select': 'change-on-select is removed, use `props.checkStrictly` instead.',
-          'hover-threshold': 'hover-threshold is removed, use `props.hoverThreshold` instead'
+          'expand-trigger':
+            'expand-trigger is removed, use `props.expandTrigger` instead.',
+          'change-on-select':
+            'change-on-select is removed, use `props.checkStrictly` instead.',
+          'hover-threshold':
+            'hover-threshold is removed, use `props.hoverThreshold` instead',
         },
         events: {
-          'active-item-change': 'active-item-change is renamed to expand-change'
-        }
+          'active-item-change':
+            'active-item-change is renamed to expand-change',
+        },
       };
     },
     toggleDropDownVisible(visible) {
@@ -462,10 +483,14 @@ export default {
         let firstNode = null;
 
         if (filtering && suggestionPanel) {
-          firstNode = suggestionPanel.$el.querySelector('.el-cascader__suggestion-item');
+          firstNode = suggestionPanel.$el.querySelector(
+            '.el-cascader__suggestion-item'
+          );
         } else {
           const firstMenu = popper.querySelector('.el-cascader-menu');
-          firstNode = firstMenu.querySelector('.el-cascader-node[tabindex="-1"]');
+          firstNode = firstMenu.querySelector(
+            '.el-cascader-node[tabindex="-1"]'
+          );
         }
 
         if (firstNode) {
@@ -497,7 +522,13 @@ export default {
       this.presentText = null;
     },
     computePresentTags() {
-      const { isDisabled, leafOnly, showAllLevels, separator, collapseTags } = this;
+      const {
+        isDisabled,
+        leafOnly,
+        showAllLevels,
+        separator,
+        collapseTags,
+      } = this;
       const checkedNodes = this.getCheckedNodes(leafOnly);
       const tags = [];
 
@@ -506,7 +537,7 @@ export default {
         key: node.uid,
         text: node.getText(showAllLevels, separator),
         hitState: false,
-        closable: !isDisabled && !node.isDisabled
+        closable: !isDisabled && !node.isDisabled,
       });
 
       if (checkedNodes.length) {
@@ -519,7 +550,7 @@ export default {
             tags.push({
               key: -1,
               text: `+ ${restCount}`,
-              closable: false
+              closable: false,
             });
           } else {
             rest.forEach(node => tags.push(genTag(node)));
@@ -537,7 +568,8 @@ export default {
         filterMethod = (node, keyword) => node.text.includes(keyword);
       }
 
-      const suggestions = this.panel.getFlattedNodes(this.leafOnly)
+      const suggestions = this.panel
+        .getFlattedNodes(this.leafOnly)
         .filter(node => {
           if (node.isDisabled) return false;
           node.text = node.getText(this.showAllLevels, this.separator) || '';
@@ -564,10 +596,12 @@ export default {
         case KeyCode.enter:
           target.click();
           break;
+        // eslint-disable-next-line
         case KeyCode.up:
           const prev = target.previousElementSibling;
           prev && prev.focus();
           break;
+        // eslint-disable-next-line
         case KeyCode.down:
           const next = target.nextElementSibling;
           next && next.focus();
@@ -626,7 +660,9 @@ export default {
       let suggestionPanelEl = null;
 
       if (suggestionPanel && (suggestionPanelEl = suggestionPanel.$el)) {
-        const suggestionList = suggestionPanelEl.querySelector('.el-cascader__suggestion-list');
+        const suggestionList = suggestionPanelEl.querySelector(
+          '.el-cascader__suggestion-list'
+        );
         suggestionList.style.minWidth = inputInner.offsetWidth + 'px';
       }
 
@@ -640,11 +676,10 @@ export default {
 
     /**
      * public methods
-    */
+     */
     getCheckedNodes(leafOnly) {
       return this.panel.getCheckedNodes(leafOnly);
-    }
-  }
+    },
+  },
 };
 </script>
-

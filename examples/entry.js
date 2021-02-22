@@ -28,16 +28,18 @@ Vue.component('side-nav', SideNav);
 Vue.component('footer-nav', FooterNav);
 
 const globalEle = new Vue({
-  data: { $isEle: false } // 是否 ele 用户
+  data: { $isEle: false }, // 是否 ele 用户
 });
 
 Vue.mixin({
   computed: {
     $isEle: {
-      get: () => (globalEle.$data.$isEle),
-      set: (data) => {globalEle.$data.$isEle = data;}
-    }
-  }
+      get: () => globalEle.$data.$isEle,
+      set: data => {
+        globalEle.$data.$isEle = data;
+      },
+    },
+  },
 });
 
 Vue.prototype.$icon = icon; // Icon 列表页用
@@ -45,7 +47,7 @@ Vue.prototype.$icon = icon; // Icon 列表页用
 const router = new VueRouter({
   mode: 'hash',
   base: __dirname,
-  routes
+  routes,
 });
 
 router.afterEach(route => {
@@ -65,7 +67,8 @@ router.afterEach(route => {
   ga('send', 'event', 'PageView', route.name);
 });
 
-new Vue({ // eslint-disable-line
+new Vue({
+  // eslint-disable-line
   ...entry,
-  router
+  router,
 }).$mount('#app');

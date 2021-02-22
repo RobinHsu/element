@@ -2,7 +2,7 @@ export default {
   el: {
     colorpicker: {
       confirm: 'موافق',
-      clear: 'إزالة'
+      clear: 'إزالة',
     },
     datepicker: {
       now: 'الآن',
@@ -41,7 +41,7 @@ export default {
         wed: 'الأربعاء',
         thu: 'الخميس',
         fri: 'الجمعة',
-        sat: 'السبت'
+        sat: 'السبت',
       },
       months: {
         jan: 'يناير',
@@ -55,47 +55,47 @@ export default {
         sep: 'سبتمبر',
         oct: 'أكتوبر',
         nov: 'نوفمبر',
-        dec: 'ديسمبر'
-      }
+        dec: 'ديسمبر',
+      },
     },
     select: {
       loading: 'جار التحميل',
       noMatch: 'لايوجد بيانات مطابقة',
       noData: 'لايوجد بيانات',
-      placeholder: 'إختر'
+      placeholder: 'إختر',
     },
     cascader: {
       noMatch: 'لايوجد بيانات مطابقة',
       loading: 'جار التحميل',
       placeholder: 'إختر',
-      noData: 'لايوجد بيانات'
+      noData: 'لايوجد بيانات',
     },
     pagination: {
       goto: 'أذهب إلى',
       pagesize: '/صفحة',
       total: 'الكل {total}',
-      pageClassifier: ''
+      pageClassifier: '',
     },
     messagebox: {
       title: 'العنوان',
       confirm: 'موافق',
       cancel: 'إلغاء',
-      error: 'مدخل غير صحيح'
+      error: 'مدخل غير صحيح',
     },
     upload: {
       delete: 'حذف',
       preview: 'عرض',
-      continue: 'إستمرار'
+      continue: 'إستمرار',
     },
     table: {
       emptyText: 'لايوجد بيانات',
       confirmFilter: 'تأكيد',
       resetFilter: 'حذف',
       clearFilter: 'الكل',
-      sumText: 'المجموع'
+      sumText: 'المجموع',
     },
     tree: {
-      emptyText: 'لايوجد بيانات'
+      emptyText: 'لايوجد بيانات',
     },
     transfer: {
       noMatch: 'لايوجد بيانات مطابقة',
@@ -103,17 +103,17 @@ export default {
       titles: ['قائمة 1', 'قائمة 2'],
       filterPlaceholder: 'ادخل كلمة',
       noCheckedFormat: '{total} عناصر',
-      hasCheckedFormat: '{checked}/{total} مختار'
+      hasCheckedFormat: '{checked}/{total} مختار',
     },
     image: {
-      error: 'فشل'
+      error: 'فشل',
     },
     pageHeader: {
-      title: 'عودة'
+      title: 'عودة',
     },
     popconfirm: {
       confirmButtonText: 'تأكيد',
-      cancelButtonText: 'إلغاء'
-    }
-  }
+      cancelButtonText: 'إلغاء',
+    },
+  },
 };

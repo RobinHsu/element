@@ -8,8 +8,8 @@ export default {
         // 不可响应的，设置 currentRowKey 时，data 不一定存在，也许无法算出正确的 currentRow
         // 把该值缓存一下，当用户点击修改 currentRow 时，把该值重置为 null
         _currentRowKey: null,
-        currentRow: null
-      }
+        currentRow: null,
+      },
     };
   },
 
@@ -29,7 +29,10 @@ export default {
       const { data = [], rowKey } = states;
       let currentRow = null;
       if (rowKey) {
-        currentRow = arrayFind(data, item => getRowIdentity(item, rowKey) === key);
+        currentRow = arrayFind(
+          data,
+          item => getRowIdentity(item, rowKey) === key
+        );
       }
       states.currentRow = currentRow;
     },
@@ -71,6 +74,6 @@ export default {
         this.setCurrentRowByKey(_currentRowKey);
         this.restoreCurrentRowKey();
       }
-    }
-  }
+    },
+  },
 };

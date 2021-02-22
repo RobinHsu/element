@@ -25,7 +25,7 @@ const CONTEXT_STYLE = [
   'padding-left',
   'padding-right',
   'border-width',
-  'box-sizing'
+  'box-sizing',
 ];
 
 function calculateNodeStyling(targetElement) {
@@ -33,19 +33,17 @@ function calculateNodeStyling(targetElement) {
 
   const boxSizing = style.getPropertyValue('box-sizing');
 
-  const paddingSize = (
+  const paddingSize =
     parseFloat(style.getPropertyValue('padding-bottom')) +
-    parseFloat(style.getPropertyValue('padding-top'))
-  );
+    parseFloat(style.getPropertyValue('padding-top'));
 
-  const borderSize = (
+  const borderSize =
     parseFloat(style.getPropertyValue('border-bottom-width')) +
-    parseFloat(style.getPropertyValue('border-top-width'))
-  );
+    parseFloat(style.getPropertyValue('border-top-width'));
 
-  const contextStyle = CONTEXT_STYLE
-    .map(name => `${name}:${style.getPropertyValue(name)}`)
-    .join(';');
+  const contextStyle = CONTEXT_STYLE.map(
+    name => `${name}:${style.getPropertyValue(name)}`
+  ).join(';');
 
   return { contextStyle, paddingSize, borderSize, boxSizing };
 }
@@ -64,7 +62,7 @@ export default function calcTextareaHeight(
     paddingSize,
     borderSize,
     boxSizing,
-    contextStyle
+    contextStyle,
   } = calculateNodeStyling(targetElement);
 
   hiddenTextarea.setAttribute('style', `${contextStyle};${HIDDEN_STYLE}`);
@@ -88,7 +86,7 @@ export default function calcTextareaHeight(
       minHeight = minHeight + paddingSize + borderSize;
     }
     height = Math.max(minHeight, height);
-    result.minHeight = `${ minHeight }px`;
+    result.minHeight = `${minHeight}px`;
   }
   if (maxRows !== null) {
     let maxHeight = singleRowHeight * maxRows;
@@ -97,8 +95,9 @@ export default function calcTextareaHeight(
     }
     height = Math.min(maxHeight, height);
   }
-  result.height = `${ height }px`;
-  hiddenTextarea.parentNode && hiddenTextarea.parentNode.removeChild(hiddenTextarea);
+  result.height = `${height}px`;
+  hiddenTextarea.parentNode &&
+    hiddenTextarea.parentNode.removeChild(hiddenTextarea);
   hiddenTextarea = null;
   return result;
-};
+}

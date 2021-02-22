@@ -13,12 +13,12 @@ export default {
       interval = null;
     };
 
-    on(el, 'mousedown', (e) => {
+    on(el, 'mousedown', e => {
       if (e.button !== 0) return;
       startTime = Date.now();
       once(document, 'mouseup', clear);
       clearInterval(interval);
       interval = setInterval(handler, 100);
     });
-  }
+  },
 };

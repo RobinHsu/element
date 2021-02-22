@@ -6,4 +6,3 @@ Row.install = function(Vue) {
 };
 
 export default Row;
-

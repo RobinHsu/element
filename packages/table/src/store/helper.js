@@ -38,4 +38,4 @@ export function mapStates(mapper) {
     }
   });
   return res;
-};
+}

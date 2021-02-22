@@ -1,5 +1,5 @@
 <template>
-  <el-input 
+  <el-input
     @keyup.enter.native="onUpdate"
     v-model="value"
     @blur="onUpdate"
@@ -12,13 +12,12 @@
 </template>
 
 <script>
-
 export default {
   props: ['val', 'onChange'],
   data() {
     return {
       value: '',
-      oldValue: ''
+      oldValue: '',
     };
   },
   methods: {
@@ -28,7 +27,7 @@ export default {
         this.oldValue = value;
         this.$emit('change', value);
       }
-    }
+    },
   },
   watch: {
     val: {
@@ -38,8 +37,8 @@ export default {
         if (!this.oldValue) {
           this.oldValue = value;
         }
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

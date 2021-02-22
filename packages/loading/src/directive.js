@@ -26,14 +26,16 @@ loadingDirective.install = Vue => {
 
             ['top', 'left'].forEach(property => {
               const scroll = property === 'top' ? 'scrollTop' : 'scrollLeft';
-              el.maskStyle[property] = el.getBoundingClientRect()[property] +
+              el.maskStyle[property] =
+                el.getBoundingClientRect()[property] +
                 document.body[scroll] +
                 document.documentElement[scroll] -
-                parseInt(getStyle(document.body, `margin-${ property }`), 10) +
+                parseInt(getStyle(document.body, `margin-${property}`), 10) +
                 'px';
             });
             ['height', 'width'].forEach(property => {
-              el.maskStyle[property] = el.getBoundingClientRect()[property] + 'px';
+              el.maskStyle[property] =
+                el.getBoundingClientRect()[property] + 'px';
             });
 
             insertDom(document.body, el, binding);
@@ -44,27 +46,40 @@ loadingDirective.install = Vue => {
         }
       });
     } else {
-      afterLeave(el.instance, _ => {
-        if (!el.instance.hiding) return;
-        el.domVisible = false;
-        const target = binding.modifiers.fullscreen || binding.modifiers.body
-          ? document.body
-          : el;
-        removeClass(target, 'el-loading-parent--relative');
-        removeClass(target, 'el-loading-parent--hidden');
-        el.instance.hiding = false;
-      }, 300, true);
+      afterLeave(
+        el.instance,
+        () => {
+          if (!el.instance.hiding) return;
+          el.domVisible = false;
+          const target =
+            binding.modifiers.fullscreen || binding.modifiers.body
+              ? document.body
+              : el;
+          removeClass(target, 'el-loading-parent--relative');
+          removeClass(target, 'el-loading-parent--hidden');
+          el.instance.hiding = false;
+        },
+        300,
+        true
+      );
       el.instance.visible = false;
       el.instance.hiding = true;
     }
   };
   const insertDom = (parent, el, binding) => {
-    if (!el.domVisible && getStyle(el, 'display') !== 'none' && getStyle(el, 'visibility') !== 'hidden') {
+    if (
+      !el.domVisible &&
+      getStyle(el, 'display') !== 'none' &&
+      getStyle(el, 'visibility') !== 'hidden'
+    ) {
       Object.keys(el.maskStyle).forEach(property => {
         el.mask.style[property] = el.maskStyle[property];
       });
 
-      if (el.originalPosition !== 'absolute' && el.originalPosition !== 'fixed') {
+      if (
+        el.originalPosition !== 'absolute' &&
+        el.originalPosition !== 'fixed'
+      ) {
         addClass(parent, 'el-loading-parent--relative');
       }
       if (binding.modifiers.fullscreen && binding.modifiers.lock) {
@@ -97,12 +112,12 @@ loadingDirective.install = Vue => {
       const mask = new Mask({
         el: document.createElement('div'),
         data: {
-          text: vm && vm[textExr] || textExr,
-          spinner: vm && vm[spinnerExr] || spinnerExr,
-          background: vm && vm[backgroundExr] || backgroundExr,
-          customClass: vm && vm[customClassExr] || customClassExr,
-          fullscreen: !!binding.modifiers.fullscreen
-        }
+          text: (vm && vm[textExr]) || textExr,
+          spinner: (vm && vm[spinnerExr]) || spinnerExr,
+          background: (vm && vm[backgroundExr]) || backgroundExr,
+          customClass: (vm && vm[customClassExr]) || customClassExr,
+          fullscreen: !!binding.modifiers.fullscreen,
+        },
       });
       el.instance = mask;
       el.mask = mask.$el;
@@ -121,12 +136,12 @@ loadingDirective.install = Vue => {
     unbind: function(el, binding) {
       if (el.domInserted) {
         el.mask &&
-        el.mask.parentNode &&
-        el.mask.parentNode.removeChild(el.mask);
+          el.mask.parentNode &&
+          el.mask.parentNode.removeChild(el.mask);
         toggleLoading(el, { value: false, modifiers: binding.modifiers });
       }
       el.instance && el.instance.$destroy();
-    }
+    },
   });
 };
 

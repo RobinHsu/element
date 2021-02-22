@@ -10,9 +10,10 @@
           'el-badge__content--' + type,
           {
             'is-fixed': $slots.default,
-            'is-dot': isDot
-          }
-        ]">
+            'is-dot': isDot,
+          },
+        ]"
+      >
       </sup>
     </transition>
   </div>
@@ -30,9 +31,11 @@ export default {
     type: {
       type: String,
       validator(val) {
-        return ['primary', 'success', 'warning', 'info', 'danger'].indexOf(val) > -1;
-      }
-    }
+        return (
+          ['primary', 'success', 'warning', 'info', 'danger'].indexOf(val) > -1
+        );
+      },
+    },
   },
 
   computed: {
@@ -47,7 +50,7 @@ export default {
       }
 
       return value;
-    }
-  }
+    },
+  },
 };
 </script>

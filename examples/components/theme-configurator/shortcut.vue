@@ -1,9 +1,8 @@
-
 <script>
 export default {
   data() {
     return {
-      downloading: false
+      downloading: false,
     };
   },
   methods: {
@@ -21,7 +20,7 @@ export default {
     },
     disableShortcut() {
       document.removeEventListener('keydown', this.shortcut);
-    }
-  }
+    },
+  },
 };
 </script>

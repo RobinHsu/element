@@ -1,13 +1,13 @@
 import {
   ELEMENT_THEME_PREVIEW_CONFIG,
-  ELEMENT_THEME_USER_CONFIG
+  ELEMENT_THEME_USER_CONFIG,
 } from './constant';
 
 export const saveToLocal = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
-export const loadFromLocal = (key) => {
+export const loadFromLocal = key => {
   try {
     return JSON.parse(localStorage.getItem(key));
   } catch (e) {
@@ -16,7 +16,7 @@ export const loadFromLocal = (key) => {
   }
 };
 
-export const savePreviewToLocal = (value) => {
+export const savePreviewToLocal = value => {
   saveToLocal(ELEMENT_THEME_PREVIEW_CONFIG, value);
 };
 
@@ -28,11 +28,10 @@ export const removePreviewFromLocal = () => {
   return localStorage.removeItem(ELEMENT_THEME_PREVIEW_CONFIG);
 };
 
-export const saveUserThemeToLocal = (value) => {
+export const saveUserThemeToLocal = value => {
   saveToLocal(ELEMENT_THEME_USER_CONFIG, value);
 };
 
 export const loadUserThemeFromLocal = () => {
   return loadFromLocal(ELEMENT_THEME_USER_CONFIG);
 };
-

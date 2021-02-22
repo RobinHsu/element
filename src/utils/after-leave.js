@@ -7,7 +7,8 @@
  * @param {Boolean} once weather bind after-leave once. default value is false.
  */
 export default function(instance, callback, speed = 300, once = false) {
-  if (!instance || !callback) throw new Error('instance & callback is required');
+  if (!instance || !callback)
+    throw new Error('instance & callback is required');
   let called = false;
   const afterLeaveCallback = function() {
     if (called) return;
@@ -24,4 +25,4 @@ export default function(instance, callback, speed = 300, once = false) {
   setTimeout(() => {
     afterLeaveCallback();
   }, speed + 100);
-};
+}

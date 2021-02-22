@@ -8,7 +8,7 @@ export default {
     return {
       docs: '', // content of docs css
       theme: ORIGINAL_THEME,
-      asyncCb: true
+      asyncCb: true,
     };
   },
   methods: {
@@ -24,9 +24,12 @@ export default {
       };
       const docsHandler = getHandler('docs', 'docs-style');
       if (!this.docs) {
-        const links = [].filter.call(document.querySelectorAll('link'), link => {
-          return /docs\..+\.css/.test(link.href || '');
-        });
+        const links = [].filter.call(
+          document.querySelectorAll('link'),
+          link => {
+            return /docs\..+\.css/.test(link.href || '');
+          }
+        );
         if (links[0]) {
           this.getCSSString(links[0].href, docsHandler, 'docs');
         } else {
@@ -35,10 +38,13 @@ export default {
       } else {
         docsHandler();
       }
-      const styles = [].slice.call(document.querySelectorAll('style'))
+      const styles = [].slice
+        .call(document.querySelectorAll('style'))
         .filter(style => {
           const text = style.innerText;
-          return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text);
+          return (
+            new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text)
+          );
         });
       styles.forEach(style => {
         const { innerText } = style;
@@ -52,11 +58,11 @@ export default {
       return style.replace(new RegExp(oldColor, 'ig'), newColor);
     },
     getCSSString(url, callback, variable) {
-      ajaxGet(url).then((res) => {
+      ajaxGet(url).then(res => {
         this[variable] = res;
         callback();
       });
-    }
-  }
+    },
+  },
 };
 </script>

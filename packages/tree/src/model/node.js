@@ -25,7 +25,7 @@ export const getChildState = node => {
 const reInitChecked = function(node) {
   if (node.childNodes.length === 0) return;
 
-  const {all, none, half} = getChildState(node.childNodes);
+  const { all, none, half } = getChildState(node.childNodes);
   if (all) {
     node.checked = true;
     node.indeterminate = false;
@@ -119,11 +119,19 @@ export default class Node {
     if (!this.data) return;
     const defaultExpandedKeys = store.defaultExpandedKeys;
     const key = store.key;
-    if (key && defaultExpandedKeys && defaultExpandedKeys.indexOf(this.key) !== -1) {
+    if (
+      key &&
+      defaultExpandedKeys &&
+      defaultExpandedKeys.indexOf(this.key) !== -1
+    ) {
       this.expand(null, store.autoExpandParent);
     }
 
-    if (key && store.currentNodeKey !== undefined && this.key === store.currentNodeKey) {
+    if (
+      key &&
+      store.currentNodeKey !== undefined &&
+      this.key === store.currentNodeKey
+    ) {
       store.currentNode = this;
       store.currentNode.isCurrent = true;
     }
@@ -231,7 +239,7 @@ export default class Node {
       }
       objectAssign(child, {
         parent: this,
-        store: this.store
+        store: this.store,
       });
       child = new Node(child);
     }
@@ -311,7 +319,7 @@ export default class Node {
     };
 
     if (this.shouldLoadData()) {
-      this.loadData((data) => {
+      this.loadData(data => {
         if (data instanceof Array) {
           if (this.checked) {
             this.setChecked(true, true);
@@ -327,8 +335,12 @@ export default class Node {
   }
 
   doCreateChildren(array, defaultProps = {}) {
-    array.forEach((item) => {
-      this.insertChild(objectAssign({ data: item }, defaultProps), undefined, true);
+    array.forEach(item => {
+      this.insertChild(
+        objectAssign({ data: item }, defaultProps),
+        undefined,
+        true
+      );
     });
   }
 
@@ -341,12 +353,19 @@ export default class Node {
   }
 
   updateLeafState() {
-    if (this.store.lazy === true && this.loaded !== true && typeof this.isLeafByUser !== 'undefined') {
+    if (
+      this.store.lazy === true &&
+      this.loaded !== true &&
+      typeof this.isLeafByUser !== 'undefined'
+    ) {
       this.isLeaf = this.isLeafByUser;
       return;
     }
     const childNodes = this.childNodes;
-    if (!this.store.lazy || (this.store.lazy === true && this.loaded === true)) {
+    if (
+      !this.store.lazy ||
+      (this.store.lazy === true && this.loaded === true)
+    ) {
       this.isLeaf = !childNodes || childNodes.length === 0;
       return;
     }
@@ -386,12 +405,15 @@ export default class Node {
 
       if (this.shouldLoadData()) {
         // Only work on lazy load data.
-        this.loadData(() => {
-          handleDescendants();
-          reInitChecked(this);
-        }, {
-          checked: value !== false
-        });
+        this.loadData(
+          () => {
+            handleDescendants();
+            reInitChecked(this);
+          },
+          {
+            checked: value !== false,
+          }
+        );
         return;
       } else {
         handleDescendants();
@@ -406,7 +428,8 @@ export default class Node {
     }
   }
 
-  getChildren(forceInit = false) { // this is data
+  getChildren(forceInit = false) {
+    // this is data
     if (this.level === 0) return this.data;
     const data = this.data;
     if (!data) return null;
@@ -430,14 +453,15 @@ export default class Node {
 
   updateChildren() {
     const newData = this.getChildren() || [];
-    const oldData = this.childNodes.map((node) => node.data);
+    const oldData = this.childNodes.map(node => node.data);
 
     const newDataMap = {};
     const newNodes = [];
 
     newData.forEach((item, index) => {
       const key = item[NODE_KEY];
-      const isNodeExists = !!key && arrayFindIndex(oldData, data => data[NODE_KEY] === key) >= 0;
+      const isNodeExists =
+        !!key && arrayFindIndex(oldData, data => data[NODE_KEY] === key) >= 0;
       if (isNodeExists) {
         newDataMap[key] = { index, data: item };
       } else {
@@ -446,7 +470,7 @@ export default class Node {
     });
 
     if (!this.store.lazy) {
-      oldData.forEach((item) => {
+      oldData.forEach(item => {
         if (!newDataMap[item[NODE_KEY]]) this.removeChildByData(item);
       });
     }
@@ -459,10 +483,15 @@ export default class Node {
   }
 
   loadData(callback, defaultProps = {}) {
-    if (this.store.lazy === true && this.store.load && !this.loaded && (!this.loading || Object.keys(defaultProps).length)) {
+    if (
+      this.store.lazy === true &&
+      this.store.load &&
+      !this.loaded &&
+      (!this.loading || Object.keys(defaultProps).length)
+    ) {
       this.loading = true;
 
-      const resolve = (children) => {
+      const resolve = children => {
         this.loaded = true;
         this.loading = false;
         this.childNodes = [];

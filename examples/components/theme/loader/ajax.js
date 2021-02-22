@@ -3,7 +3,7 @@ const defaultTimeout = 'Request Timeout';
 const xhr = (method, url, data = null, cb) => {
   return new window.Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    const doReject = (xhr) => {
+    const doReject = xhr => {
       reject(xhr.response || xhr.statusText || defaultError);
     };
     xhr.open(method, url);
@@ -36,7 +36,9 @@ const xhr = (method, url, data = null, cb) => {
           }
           try {
             response = JSON.parse(xhr.response);
-          } catch (e) {}
+          } catch (e) {
+            // noop
+          }
           resolve(response);
         } else {
           doReject(xhr);
@@ -60,6 +62,6 @@ export const post = (url, data, cb) => {
   return xhr('POST', url, data, cb);
 };
 
-export const get = (url) => {
+export const get = url => {
   return xhr('GET', url);
 };

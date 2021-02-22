@@ -18,7 +18,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     .upload-action {
       width: 40%;
       margin: 0 auto;
@@ -53,7 +53,7 @@
       display: inline-block;
     }
     .action {
-      transition: all .3s;
+      transition: all 0.3s;
       position: absolute;
       opacity: 0;
       top: 0;
@@ -93,8 +93,8 @@
           font-size: 22px;
           text-align: center;
           display: flex;
-          justify-content:center;
-          align-items:center;
+          justify-content: center;
+          align-items: center;
           img {
             width: 130%;
           }
@@ -104,8 +104,8 @@
           height: 50%;
           text-align: center;
           display: flex;
-          justify-content:center;
-          align-items:center;
+          justify-content: center;
+          align-items: center;
           margin-top: 4px;
         }
       }
@@ -148,7 +148,7 @@
   }
   &.is-upload {
     box-shadow: none;
-    border: 1px dashed #DCDFE6;
+    border: 1px dashed #dcdfe6;
   }
   &.is-upload:hover {
     box-shadow: none;
@@ -164,12 +164,15 @@
 </style>
 
 <template>
-  <section class="theme-card-item" :class="{'is-hidden': !config || !config.name, 'is-upload': isUpload}">
+  <section
+    class="theme-card-item"
+    :class="{ 'is-hidden': !config || !config.name, 'is-upload': isUpload }"
+  >
     <template v-if="isUpload">
       <div class="upload" @click="uploadClick">
         <div class="upload-action">
-          <img src="../../assets/images/icon-upload.svg"/>
-          <span>{{getActionDisplayName('upload-theme')}}</span>
+          <img src="../../assets/images/icon-upload.svg" />
+          <span>{{ getActionDisplayName('upload-theme') }}</span>
         </div>
       </div>
       <input
@@ -183,14 +186,17 @@
     <template v-else>
       <div class="preview">
         <div class="line">
-          <span class="line-2" :style="{background: mainColor}"></span>
-          <span class="line-2" :style="{background: textPrimaryColor}"></span>
+          <span class="line-2" :style="{ background: mainColor }"></span>
+          <span class="line-2" :style="{ background: textPrimaryColor }"></span>
         </div>
         <div class="line">
-          <span class="line-4" :style="{background: mainColor50}"></span>
-          <span class="line-4" :style="{background: mainColor80}"></span>
-          <span class="line-4" :style="{background: borderBaseColor}"></span>
-          <span class="line-4" :style="{background: textSecondaryColor}"></span>
+          <span class="line-4" :style="{ background: mainColor50 }"></span>
+          <span class="line-4" :style="{ background: mainColor80 }"></span>
+          <span class="line-4" :style="{ background: borderBaseColor }"></span>
+          <span
+            class="line-4"
+            :style="{ background: textSecondaryColor }"
+          ></span>
         </div>
         <div class="action">
           <div class="action-mask"></div>
@@ -203,11 +209,11 @@
               @click="iconClick(item.action)"
             >
               <div class="icon">
-                <img :src="item.icon"/>
+                <img :src="item.icon" />
                 <span class="circle"></span>
               </div>
               <div class="name">
-                <span>{{item.name}}</span>
+                <span>{{ item.name }}</span>
               </div>
             </div>
           </div>
@@ -216,26 +222,32 @@
       <div class="info">
         <div class="info-center">
           <div class="title">
-            <span>{{config.name}}</span>
-            <span class="right" v-if="isOfficial">by {{config.author}}</span>
+            <span>{{ config.name }}</span>
+            <span class="right" v-if="isOfficial">by {{ config.author }}</span>
             <span class="right more" v-else>
               <el-dropdown @command="actionClick">
                 <i class="el-icon-more"></i>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="rename">{{getActionDisplayName('rename-theme')}}</el-dropdown-item>
-                  <el-dropdown-item command="copy">{{getActionDisplayName('copy-theme')}}</el-dropdown-item>
-                  <el-dropdown-item
-                      command="delete"
-                      style="color: #F56C6C;"
-                    >
-                      {{getActionDisplayName('delete-theme')}}
-                    </el-dropdown-item>
+                  <el-dropdown-item command="rename">{{
+                    getActionDisplayName('rename-theme')
+                  }}</el-dropdown-item>
+                  <el-dropdown-item command="copy">{{
+                    getActionDisplayName('copy-theme')
+                  }}</el-dropdown-item>
+                  <el-dropdown-item command="delete" style="color: #F56C6C;">
+                    {{ getActionDisplayName('delete-theme') }}
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </span>
           </div>
-          <div class="description" v-if="isOfficial">{{getActionDisplayName(getDescriptionKey(config.name))}} </div>
-          <div class="description" v-else>{{getActionDisplayName('last-modified')}} {{formatDate(config.update)}}</div>
+          <div class="description" v-if="isOfficial">
+            {{ getActionDisplayName(getDescriptionKey(config.name)) }}
+          </div>
+          <div class="description" v-else>
+            {{ getActionDisplayName('last-modified') }}
+            {{ formatDate(config.update) }}
+          </div>
         </div>
       </div>
     </template>
@@ -244,10 +256,7 @@
 
 <script>
 import bus from '../../bus';
-import {
-  DEFAULT_THEME_CONFIG,
-  ACTION_DOWNLOAD_THEME
-} from './constant.js';
+import { DEFAULT_THEME_CONFIG, ACTION_DOWNLOAD_THEME } from './constant.js';
 import { savePreviewToLocal } from './localstorage';
 import { tintColor } from '../../color.js';
 import dateUtil from 'element-ui/src/utils/date';
@@ -259,13 +268,13 @@ export default {
     type: String,
     base: {
       type: String,
-      default: ''
+      default: '',
     },
-    from: String
+    from: String,
   },
   data() {
     return {
-      deleteVisible: false
+      deleteVisible: false,
     };
   },
   methods: {
@@ -287,7 +296,7 @@ export default {
       const files = ev.target.files;
       if (!files) return;
       var reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = e => {
         try {
           const jsonString = e.target.result;
           const jsonObject = JSON.parse(jsonString);
@@ -306,6 +315,7 @@ export default {
       this.$emit('action', e, this.config);
     },
     iconClick(e) {
+      /* eslint-disable */
       switch (e) {
         case 'preview':
         case 'edit':
@@ -317,13 +327,13 @@ export default {
           savePreviewToLocal({
             type: this.type,
             name,
-            theme
+            theme,
           });
           this.$router.push({
             name: `theme-preview-${this.$route.meta.lang}`,
             params: {
-              refer: 'theme'
-            }
+              refer: 'theme',
+            },
           });
           this.$nextTick(() => {
             window.scrollTo(0, 0);
@@ -336,11 +346,12 @@ export default {
           this.$emit('action', e, this.config);
           return;
       }
+      /* eslint-enable */
     },
     deleteUserTheme() {
       this.deleteVisible = false;
       this.$emit('action', 'delete', this.config);
-    }
+    },
   },
   computed: {
     isUpload() {
@@ -379,28 +390,28 @@ export default {
           {
             icon: require('../../assets/images/icon-check.png'),
             name: getActionDisplayName('theme-check'),
-            action: 'preview'
+            action: 'preview',
           },
           {
             icon: require('../../assets/images/icon-copy.png'),
             name: getActionDisplayName('theme-copy'),
-            action: 'copy'
-          }
+            action: 'copy',
+          },
         ];
       }
       return [
         {
           icon: require('../../assets/images/icon-edit.png'),
           name: getActionDisplayName('theme-edit'),
-          action: 'edit'
+          action: 'edit',
         },
         {
           icon: require('../../assets/images/icon-download.png'),
           name: getActionDisplayName('download-theme'),
-          action: 'download'
-        }
+          action: 'download',
+        },
       ];
-    }
-  }
+    },
+  },
 };
 </script>

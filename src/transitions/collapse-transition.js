@@ -69,9 +69,9 @@ export default {
   functional: true,
   render(h, { children }) {
     const data = {
-      on: new Transition()
+      on: new Transition(),
     };
 
     return h('transition', data, children);
-  }
+  },
 };

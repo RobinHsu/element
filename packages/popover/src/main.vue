@@ -3,7 +3,8 @@
     <transition
       :name="transition"
       @after-enter="handleAfterEnter"
-      @after-leave="handleAfterLeave">
+      @after-leave="handleAfterLeave"
+    >
       <div
         class="el-popover el-popper"
         :class="[popperClass, content && 'el-popover--plain']"
@@ -12,13 +13,13 @@
         :style="{ width: width + 'px' }"
         role="tooltip"
         :id="tooltipId"
-        :aria-hidden="(disabled || !showPopper) ? 'true' : 'false'"
+        :aria-hidden="disabled || !showPopper ? 'true' : 'false'"
       >
         <div class="el-popover__title" v-if="title" v-text="title"></div>
         <slot>{{ content }}</slot>
       </div>
     </transition>
-    <span class="el-popover__reference-wrapper" ref="wrapper" >
+    <span class="el-popover__reference-wrapper" ref="wrapper">
       <slot name="reference"></slot>
     </span>
   </span>
@@ -38,15 +39,16 @@ export default {
     trigger: {
       type: String,
       default: 'click',
-      validator: value => ['click', 'focus', 'hover', 'manual'].indexOf(value) > -1
+      validator: value =>
+        ['click', 'focus', 'hover', 'manual'].indexOf(value) > -1,
     },
     openDelay: {
       type: Number,
-      default: 0
+      default: 0,
     },
     closeDelay: {
       type: Number,
-      default: 200
+      default: 200,
     },
     title: String,
     disabled: Boolean,
@@ -55,26 +57,26 @@ export default {
     popperClass: String,
     width: {},
     visibleArrow: {
-      default: true
+      default: true,
     },
     arrowOffset: {
       type: Number,
-      default: 0
+      default: 0,
     },
     transition: {
       type: String,
-      default: 'fade-in-linear'
+      default: 'fade-in-linear',
     },
     tabindex: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
 
   computed: {
     tooltipId() {
       return `el-popover-${generateId()}`;
-    }
+    },
   },
   watch: {
     showPopper(val) {
@@ -82,11 +84,12 @@ export default {
         return;
       }
       val ? this.$emit('show') : this.$emit('hide');
-    }
+    },
   },
 
   mounted() {
-    let reference = this.referenceElm = this.reference || this.$refs.reference;
+    let reference = (this.referenceElm =
+      this.reference || this.$refs.reference);
     const popper = this.popper || this.$refs.popper;
 
     if (!reference && this.$refs.wrapper.children) {
@@ -124,7 +127,9 @@ export default {
       on(popper, 'mouseleave', this.handleMouseLeave);
     } else if (this.trigger === 'focus') {
       if (this.tabindex < 0) {
-        console.warn('[Element Warn][Popover]a negative taindex means that the element cannot be focused by tab key');
+        console.warn(
+          '[Element Warn][Popover]a negative taindex means that the element cannot be focused by tab key'
+        );
       }
       if (reference.querySelector('input, textarea')) {
         on(reference, 'focusin', this.doShow);
@@ -156,14 +161,16 @@ export default {
     },
     handleFocus() {
       addClass(this.referenceElm, 'focusing');
-      if (this.trigger === 'click' || this.trigger === 'focus') this.showPopper = true;
+      if (this.trigger === 'click' || this.trigger === 'focus')
+        this.showPopper = true;
     },
     handleClick() {
       removeClass(this.referenceElm, 'focusing');
     },
     handleBlur() {
       removeClass(this.referenceElm, 'focusing');
-      if (this.trigger === 'click' || this.trigger === 'focus') this.showPopper = false;
+      if (this.trigger === 'click' || this.trigger === 'focus')
+        this.showPopper = false;
     },
     handleMouseEnter() {
       clearTimeout(this._timer);
@@ -176,7 +183,8 @@ export default {
       }
     },
     handleKeydown(ev) {
-      if (ev.keyCode === 27 && this.trigger !== 'manual') { // esc
+      if (ev.keyCode === 27 && this.trigger !== 'manual') {
+        // esc
         this.doClose();
       }
     },
@@ -197,12 +205,15 @@ export default {
       if (!reference && this.$refs.wrapper.children) {
         reference = this.referenceElm = this.$refs.wrapper.children[0];
       }
-      if (!this.$el ||
+      if (
+        !this.$el ||
         !reference ||
         this.$el.contains(e.target) ||
         reference.contains(e.target) ||
         !popper ||
-        popper.contains(e.target)) return;
+        popper.contains(e.target)
+      )
+        return;
       this.showPopper = false;
     },
     handleAfterEnter() {
@@ -216,7 +227,7 @@ export default {
       if (this.openDelay || this.closeDelay) {
         clearTimeout(this._timer);
       }
-    }
+    },
   },
 
   destroyed() {
@@ -232,6 +243,6 @@ export default {
     off(reference, 'mouseleave', this.handleMouseLeave);
     off(reference, 'mouseenter', this.handleMouseEnter);
     off(document, 'click', this.handleDocumentClick);
-  }
+  },
 };
 </script>

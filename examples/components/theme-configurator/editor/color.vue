@@ -2,26 +2,26 @@
   <section class="config" :key="displayName">
     <div class="config-label">
       <el-tooltip :content="displayName" placement="top">
-        <span>{{displayKeyName}}</span>
+        <span>{{ displayKeyName }}</span>
       </el-tooltip>
     </div>
     <div class="config-content">
       <div class="content-80">
         <el-input
           size="medium"
-          :value=displayValue
+          :value="displayValue"
           readonly
           slot="reference"
           @click.native="onInputClick"
         ></el-input>
       </div>
       <div class="content-20">
-        <color-picker 
+        <color-picker
           size="medium"
           ref="colorPicker"
           class="colorPicker"
-          v-model="pickerColor" 
-          @change=onPickerChange
+          v-model="pickerColor"
+          @change="onPickerChange"
           :colorList="golbalColorList"
         ></color-picker>
       </div>
@@ -46,11 +46,11 @@ import ColorPicker from './color-picker';
 
 export default {
   components: {
-    ColorPicker
+    ColorPicker,
   },
   data() {
     return {
-      pickerColor: ''
+      pickerColor: '',
     };
   },
   mixins: [Mixin],
@@ -61,8 +61,8 @@ export default {
         if (value.startsWith('#')) {
           this.pickerColor = value;
         }
-      }
-    }
+      },
+    },
   },
   computed: {
     golbalColor() {
@@ -72,14 +72,14 @@ export default {
       return getStyleDisplayValue(this.mergedValue, this.golbalColor);
     },
     golbalColorList() {
-      return this.isGlobal ? [] : Object.keys(this.golbalColor).map((c) => (
-        {
-          label: getStyleDisplayName(this.golbalColor[c]),
-          value: this.golbalColor[c].value,
-          variable: c
-        }
-      ));
-    }
+      return this.isGlobal
+        ? []
+        : Object.keys(this.golbalColor).map(c => ({
+            label: getStyleDisplayName(this.golbalColor[c]),
+            value: this.golbalColor[c].value,
+            variable: c,
+          }));
+    },
   },
   methods: {
     onInputClick() {
@@ -87,7 +87,7 @@ export default {
     },
     onPickerChange(e) {
       this.onChange(e.variable || e);
-    }
-  }
+    },
+  },
 };
 </script>

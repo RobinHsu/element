@@ -3,11 +3,9 @@ import {
   isHtmlElement,
   isFunction,
   isUndefined,
-  isDefined
+  isDefined,
 } from 'element-ui/src/utils/types';
-import {
-  getScrollContainer
-} from 'element-ui/src/utils/dom';
+import { getScrollContainer } from 'element-ui/src/utils/dom';
 
 const getStyleComputedProperty = (element, property) => {
   if (element === window) {
@@ -22,9 +20,8 @@ const getStyleComputedProperty = (element, property) => {
   return property ? css[property] : css;
 };
 
-const entries = (obj) => {
-  return Object.keys(obj || {})
-    .map(key => ([key, obj[key]]));
+const entries = obj => {
+  return Object.keys(obj || {}).map(key => [key, obj[key]]);
 };
 
 const getPositionSize = (el, prop) => {
@@ -45,20 +42,20 @@ const scope = 'ElInfiniteScroll';
 const attributes = {
   delay: {
     type: Number,
-    default: 200
+    default: 200,
   },
   distance: {
     type: Number,
-    default: 0
+    default: 0,
   },
   disabled: {
     type: Boolean,
-    default: false
+    default: false,
   },
   immediate: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 };
 
 const getScrollOptions = (el, vm) => {
@@ -74,7 +71,11 @@ const getScrollOptions = (el, vm) => {
         value = Number.isNaN(value) ? defaultValue : value;
         break;
       case Boolean:
-        value = isDefined(value) ? value === 'false' ? false : Boolean(value) : defaultValue;
+        value = isDefined(value)
+          ? value === 'false'
+            ? false
+            : Boolean(value)
+          : defaultValue;
         break;
       default:
         value = type(value);
@@ -102,9 +103,12 @@ const handleScroll = function(cb) {
     const scrollBottom = container.scrollTop + getClientHeight(container);
     shouldTrigger = container.scrollHeight - scrollBottom <= distance;
   } else {
-    const heightBelowTop = getOffsetHeight(el) + getElementTop(el) - getElementTop(container);
+    const heightBelowTop =
+      getOffsetHeight(el) + getElementTop(el) - getElementTop(container);
     const offsetHeight = getOffsetHeight(container);
-    const borderBottom = Number.parseFloat(getStyleComputedProperty(container, 'borderBottomWidth'));
+    const borderBottom = Number.parseFloat(
+      getStyleComputedProperty(container, 'borderBottomWidth')
+    );
     shouldTrigger = heightBelowTop - offsetHeight + borderBottom <= distance;
   }
 
@@ -114,7 +118,6 @@ const handleScroll = function(cb) {
     observer.disconnect();
     this[scope].observer = null;
   }
-
 };
 
 export default {
@@ -134,7 +137,7 @@ export default {
       container.addEventListener('scroll', onScroll);
 
       if (immediate) {
-        const observer = el[scope].observer = new MutationObserver(onScroll);
+        const observer = (el[scope].observer = new MutationObserver(onScroll));
         observer.observe(container, { childList: true, subtree: true });
         onScroll();
       }
@@ -145,6 +148,5 @@ export default {
     if (container) {
       container.removeEventListener('scroll', onScroll);
     }
-  }
+  },
 };
-

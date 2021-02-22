@@ -3,7 +3,7 @@ export default function(ref) {
     methods: {
       focus() {
         this.$refs[ref].focus();
-      }
-    }
+      },
+    },
   };
-};
+}

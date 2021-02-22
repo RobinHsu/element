@@ -7,11 +7,11 @@ import { updateDomHeadStyle } from '../utils.js';
 import {
   ACTION_APPLY_THEME,
   ACTION_DOWNLOAD_THEME,
-  ACTION_USER_CONFIG_UPDATE
+  ACTION_USER_CONFIG_UPDATE,
 } from '../constant.js';
 import {
   loadUserThemeFromLocal,
-  loadPreviewFromLocal
+  loadPreviewFromLocal,
 } from '../localstorage.js';
 import { getActionDisplayName } from '../../theme-configurator/utils/utils';
 
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       userConfig: {},
-      lastApply: 0
+      lastApply: 0,
     };
   },
   methods: {
@@ -43,13 +43,11 @@ export default {
     },
     onDownload(themeConfig, themeName) {
       this.triggertProgressBar(true);
-      updateVars(
-        Object.assign({}, themeConfig, { download: true }),
-        xhr => {
-          xhr.responseType = 'blob';
-        }
-      ).then()
-        .catch((err) => {
+      updateVars(Object.assign({}, themeConfig, { download: true }), xhr => {
+        xhr.responseType = 'blob';
+      })
+        .then()
+        .catch(err => {
           this.onError(err);
         })
         .then(() => {
@@ -94,13 +92,15 @@ export default {
       if (previewConfig.type === 'user') {
         const userConfig = loadUserThemeFromLocal();
         this.$message(getActionDisplayName('load-local-theme-config'));
-        const config = userConfig.filter(theme => (theme.name === previewConfig.name));
+        const config = userConfig.filter(
+          theme => theme.name === previewConfig.name
+        );
         if (config && config[0]) {
           this.userConfig = JSON.parse(config[0].theme);
           this.onAction();
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>

@@ -30,7 +30,7 @@ const defaults = {
   dangerouslyUseHTMLString: false,
   center: false,
   roundButton: false,
-  distinguishCancelAndClose: false
+  distinguishCancelAndClose: false,
 };
 
 import Vue from 'vue';
@@ -60,7 +60,10 @@ const defaultCallback = action => {
         } else {
           currentMsg.resolve(action);
         }
-      } else if (currentMsg.reject && (action === 'cancel' || action === 'close')) {
+      } else if (
+        currentMsg.reject &&
+        (action === 'cancel' || action === 'close')
+      ) {
         currentMsg.reject(action);
       }
     }
@@ -69,7 +72,7 @@ const defaultCallback = action => {
 
 const initInstance = () => {
   instance = new MessageBoxConstructor({
-    el: document.createElement('div')
+    el: document.createElement('div'),
   });
 
   instance.callback = defaultCallback;
@@ -106,7 +109,13 @@ const showNextMsg = () => {
       } else {
         delete instance.$slots.default;
       }
-      ['modal', 'showClose', 'closeOnClickModal', 'closeOnPressEscape', 'closeOnHashChange'].forEach(prop => {
+      [
+        'modal',
+        'showClose',
+        'closeOnClickModal',
+        'closeOnPressEscape',
+        'closeOnHashChange',
+      ].forEach(prop => {
         if (instance[prop] === undefined) {
           instance[prop] = true;
         }
@@ -124,7 +133,7 @@ const MessageBox = function(options, callback) {
   if (Vue.prototype.$isServer) return;
   if (typeof options === 'string' || isVNode(options)) {
     options = {
-      message: options
+      message: options,
     };
     if (typeof arguments[1] === 'string') {
       options.title = arguments[1];
@@ -134,12 +143,13 @@ const MessageBox = function(options, callback) {
   }
 
   if (typeof Promise !== 'undefined') {
-    return new Promise((resolve, reject) => { // eslint-disable-line
+    return new Promise((resolve, reject) => {
+      // eslint-disable-line
       msgQueue.push({
         options: merge({}, defaults, MessageBox.defaults, options),
         callback: callback,
         resolve: resolve,
-        reject: reject
+        reject: reject,
       });
 
       showNextMsg();
@@ -147,7 +157,7 @@ const MessageBox = function(options, callback) {
   } else {
     msgQueue.push({
       options: merge({}, defaults, MessageBox.defaults, options),
-      callback: callback
+      callback: callback,
     });
 
     showNextMsg();
@@ -165,13 +175,18 @@ MessageBox.alert = (message, title, options) => {
   } else if (title === undefined) {
     title = '';
   }
-  return MessageBox(merge({
-    title: title,
-    message: message,
-    $type: 'alert',
-    closeOnPressEscape: false,
-    closeOnClickModal: false
-  }, options));
+  return MessageBox(
+    merge(
+      {
+        title: title,
+        message: message,
+        $type: 'alert',
+        closeOnPressEscape: false,
+        closeOnClickModal: false,
+      },
+      options
+    )
+  );
 };
 
 MessageBox.confirm = (message, title, options) => {
@@ -181,12 +196,17 @@ MessageBox.confirm = (message, title, options) => {
   } else if (title === undefined) {
     title = '';
   }
-  return MessageBox(merge({
-    title: title,
-    message: message,
-    $type: 'confirm',
-    showCancelButton: true
-  }, options));
+  return MessageBox(
+    merge(
+      {
+        title: title,
+        message: message,
+        $type: 'confirm',
+        showCancelButton: true,
+      },
+      options
+    )
+  );
 };
 
 MessageBox.prompt = (message, title, options) => {
@@ -196,13 +216,18 @@ MessageBox.prompt = (message, title, options) => {
   } else if (title === undefined) {
     title = '';
   }
-  return MessageBox(merge({
-    title: title,
-    message: message,
-    showCancelButton: true,
-    showInput: true,
-    $type: 'prompt'
-  }, options));
+  return MessageBox(
+    merge(
+      {
+        title: title,
+        message: message,
+        showCancelButton: true,
+        showInput: true,
+        $type: 'prompt',
+      },
+      options
+    )
+  );
 };
 
 MessageBox.close = () => {

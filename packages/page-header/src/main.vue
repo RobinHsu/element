@@ -22,9 +22,9 @@ export default {
       type: String,
       default() {
         return t('el.pageHeader.title');
-      }
+      },
     },
-    content: String
-  }
+    content: String,
+  },
 };
 </script>

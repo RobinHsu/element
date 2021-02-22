@@ -13,8 +13,8 @@ export default {
         lazy: false,
         lazyTreeNodeMap: {},
         lazyColumnIdentifier: 'hasChildren',
-        childrenColumnName: 'children'
-      }
+        childrenColumnName: 'children',
+      },
     };
   },
 
@@ -48,12 +48,12 @@ export default {
         }
       });
       return res;
-    }
+    },
   },
 
   watch: {
     normalizedData: 'updateTreeData',
-    normalizedLazyNode: 'updateTreeData'
+    normalizedLazyNode: 'updateTreeData',
   },
 
   methods: {
@@ -62,7 +62,7 @@ export default {
         childrenColumnName,
         lazyColumnIdentifier,
         rowKey,
-        lazy
+        lazy,
       } = this.states;
       const res = {};
       walkTreeNode(
@@ -72,14 +72,14 @@ export default {
           if (Array.isArray(children)) {
             res[parentId] = {
               children: children.map(row => getRowIdentity(row, rowKey)),
-              level
+              level,
             };
           } else if (lazy) {
             // 当 children 不存在且 lazy 为 true，该节点即为懒加载的节点
             res[parentId] = {
               children: [],
               lazy: true,
-              level
+              level,
             };
           }
         },
@@ -99,7 +99,7 @@ export default {
           treeData: oldTreeData,
           defaultExpandAll,
           expandRowKeys,
-          lazy
+          lazy,
         } = this.states;
         const rootLazyRowKeys = [];
         const getExpanded = (oldValue, key) => {
@@ -141,7 +141,7 @@ export default {
                 loading: !!loading,
                 expanded: getExpanded(oldValue, key),
                 children: lazyNodeChildren,
-                level: ''
+                level: '',
               };
             }
           });
@@ -162,7 +162,7 @@ export default {
       const { rowKey, treeData } = this.states;
       const id = getRowIdentity(row, rowKey);
       const data = id && treeData[id];
-      if (id && data && ('expanded' in data)) {
+      if (id && data && 'expanded' in data) {
         const oldExpanded = data.expanded;
         expanded = typeof expanded === 'undefined' ? !data.expanded : expanded;
         treeData[id].expanded = expanded;
@@ -203,6 +203,6 @@ export default {
           this.table.$emit('expand-change', row, true);
         });
       }
-    }
-  }
+    },
+  },
 };

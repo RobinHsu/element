@@ -2,12 +2,12 @@
   <section class="config" :key="displayName">
     <div class="config-label">
       <el-tooltip :content="displayName" placement="top">
-        <span>{{displayKeyName}}</span>
+        <span>{{ displayKeyName }}</span>
       </el-tooltip>
     </div>
     <div class="config-content">
-      <el-select 
-        v-model="value" 
+      <el-select
+        v-model="value"
         class="select"
         size="medium"
         @change="onSelectChange"
@@ -16,7 +16,8 @@
           v-for="item in options"
           :key="item.value"
           :label="item.label"
-          :value="item.value">
+          :value="item.value"
+        >
         </el-option>
       </el-select>
     </div>
@@ -44,7 +45,7 @@ const defaultFontWeight = [
   '700',
   '800',
   '900',
-  'inherit'
+  'inherit',
 ];
 import Mixin from './mixin';
 import { getStyleDisplayName } from '../utils/utils.js';
@@ -52,23 +53,23 @@ import { getStyleDisplayName } from '../utils/utils.js';
 export default {
   props: {
     componentName: {
-      type: String
+      type: String,
     },
     golbalValue: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
       options: [],
-      value: ''
+      value: '',
     };
   },
   mixins: [Mixin],
   computed: {
     isGlobalInputValue() {
       return this.config.value.startsWith('$');
-    }
+    },
   },
   methods: {
     onSelectChange(e) {
@@ -76,34 +77,34 @@ export default {
     },
     initSelectOption() {
       this.options = [];
-      defaultFontWeight.forEach((weight) => {
+      defaultFontWeight.forEach(weight => {
         this.options.push({
           value: weight,
-          label: weight
+          label: weight,
         });
       });
       const golbalTypography = this.golbalValue.typography;
       if (this.isGlobalInputValue && golbalTypography) {
-        Object.keys(golbalTypography).forEach((font) => {
+        Object.keys(golbalTypography).forEach(font => {
           if (font.includes('font-weight')) {
             const weight = golbalTypography[font];
             this.options.push({
               value: weight.key,
-              label: getStyleDisplayName(weight)
+              label: getStyleDisplayName(weight),
             });
           }
         });
       }
-    }
+    },
   },
   watch: {
-    'mergedValue': {
+    mergedValue: {
       immediate: true,
-      handler(value) {
+      handler() {
         this.initSelectOption();
         this.value = this.mergedValue;
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

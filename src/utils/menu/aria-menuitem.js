@@ -28,7 +28,8 @@ MenuItem.prototype.addListeners = function() {
         break;
       case keys.up:
         Utils.triggerEvent(event.currentTarget, 'mouseenter');
-        this.submenu && this.submenu.gotoSubIndex(this.submenu.subMenuItems.length - 1);
+        this.submenu &&
+          this.submenu.gotoSubIndex(this.submenu.subMenuItems.length - 1);
         prevDef = true;
         break;
       case keys.tab:

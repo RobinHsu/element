@@ -6,4 +6,3 @@ ElCol.install = function(Vue) {
 };
 
 export default ElCol;
-

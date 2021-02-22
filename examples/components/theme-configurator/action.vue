@@ -1,53 +1,54 @@
 <template>
   <div class="configurator-action">
-      <div class="action-group">
-        <el-tooltip :content="getActionDisplayName('undo')">
-          <img 
-            src="../../assets/images/icon-undo.svg"
-            @click="onUndo"
-            :class="{ 'active': userConfigHistory.length > 0 }"
-          />
-        </el-tooltip>
-        <el-tooltip :content="getActionDisplayName('redo')">
-          <img 
-            src="../../assets/images/icon-redo.svg"
-            @click="onRedo"
-            :class="{ 'active': userConfigRedoHistory.length > 0 }"
-          />
-        </el-tooltip>
-        <div class="button-group">
-          <el-button 
-            class="reset"
-            type="primary" 
-            round 
-            size="mini"
-            :disabled="isOfficial"
-            @click="onReset"
-          >
-            {{getActionDisplayName('reset-theme')}}
-          </el-button>
-          <el-button 
-            class="download"
-            type="primary" 
-            round 
-            size="mini"
-            :disabled="downloadDisabled"
-            @click="onDownload"
-          >
-            {{getActionDisplayName('download-theme')}}
-          </el-button>
-        </div>
+    <div class="action-group">
+      <el-tooltip :content="getActionDisplayName('undo')">
+        <img
+          src="../../assets/images/icon-undo.svg"
+          @click="onUndo"
+          :class="{ active: userConfigHistory.length > 0 }"
+        />
+      </el-tooltip>
+      <el-tooltip :content="getActionDisplayName('redo')">
+        <img
+          src="../../assets/images/icon-redo.svg"
+          @click="onRedo"
+          :class="{ active: userConfigRedoHistory.length > 0 }"
+        />
+      </el-tooltip>
+      <div class="button-group">
+        <el-button
+          class="reset"
+          type="primary"
+          round
+          size="mini"
+          :disabled="isOfficial"
+          @click="onReset"
+        >
+          {{ getActionDisplayName('reset-theme') }}
+        </el-button>
+        <el-button
+          class="download"
+          type="primary"
+          round
+          size="mini"
+          :disabled="downloadDisabled"
+          @click="onDownload"
+        >
+          {{ getActionDisplayName('download-theme') }}
+        </el-button>
       </div>
-      <el-select v-model="selectedComponent" class="selector">
-        <el-option
-          v-for="item in selectOptions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <div class="line"></div>
     </div>
+    <el-select v-model="selectedComponent" class="selector">
+      <el-option
+        v-for="item in selectOptions"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      >
+      </el-option>
+    </el-select>
+    <div class="line"></div>
+  </div>
 </template>
 
 <style lang="scss">
@@ -61,7 +62,7 @@
       height: 16px;
       padding: 7px 0;
       margin-left: 5px;
-      opacity: .5;
+      opacity: 0.5;
       &.active {
         opacity: 1;
         cursor: pointer;
@@ -75,20 +76,20 @@
       .el-button {
         padding: 6px 15px;
         &.is-disabled {
-          color: #C0C4CC;
+          color: #c0c4cc;
           background-color: #fff;
-          border-color: #EBEEF5;
+          border-color: #ebeef5;
         }
       }
       .reset {
-        background: #E6F1FC;
-        color: #1989FA;
-        border-color: #A2CFFC;
+        background: #e6f1fc;
+        color: #1989fa;
+        border-color: #a2cffc;
       }
       .download {
-        background: #1989FA;
-        color: #FFF;
-        border-color: #1989FA
+        background: #1989fa;
+        color: #fff;
+        border-color: #1989fa;
       }
     }
   }
@@ -105,7 +106,7 @@
   .line {
     width: 100%;
     height: 0;
-    border-bottom: 1px solid #DCDFE6;
+    border-bottom: 1px solid #dcdfe6;
   }
 }
 </style>
@@ -119,20 +120,20 @@ export default {
     userConfigRedoHistory: Array,
     isOfficial: Boolean,
     onUndo: Function,
-    onRedo: Function
+    onRedo: Function,
   },
   data() {
     return {
       selectedComponent: 'color',
-      downloadDisabled: false
+      downloadDisabled: false,
     };
   },
   watch: {
     selectedComponent: {
       handler(val) {
         this.$emit('select', val);
-      }
-    }
+      },
+    },
   },
   methods: {
     getActionDisplayName(key) {
@@ -147,7 +148,7 @@ export default {
       setTimeout(() => {
         this.downloadDisabled = false;
       }, 2500);
-    }
-  }
+    },
+  },
 };
 </script>

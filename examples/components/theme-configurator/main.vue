@@ -2,19 +2,16 @@
   <div class="editor-main" ref="mainPanel">
     <!-- <span>{{configName}}</span> -->
     <div v-for="(config, key) in configByOrder" :key="key">
-      <span 
-        v-if="showCategory(config.category, key + 1)"
-        class="category-name"
-      >
-        {{config.category}}
+      <span v-if="showCategory(config.category, key + 1)" class="category-name">
+        {{ config.category }}
       </span>
-      <component 
+      <component
         :is="editorComponent(config.type)"
-        :componentName=configName
-        :config=config
-        :userConfig=userConfigByType
-        :golbalValue=globalValue
-        @onChange=onChange
+        :componentName="configName"
+        :config="config"
+        :userConfig="userConfigByType"
+        :golbalValue="globalValue"
+        @onChange="onChange"
       >
       </component>
     </div>
@@ -27,7 +24,7 @@
   overflow-y: auto;
 }
 .category-name {
-  color: #C0C4CC;
+  color: #c0c4cc;
   font-size: 18px;
   display: block;
   margin: 13px 0 3px 0;
@@ -52,21 +49,21 @@ export default {
     simpleTextEditor,
     borderRadiusEditor,
     boxShadowEditor,
-    fontWeightEditor
+    fontWeightEditor,
   },
   props: {
     defaultConfig: {
-      type: Array
+      type: Array,
     },
     currentConfig: {
-      type: Object
+      type: Object,
     },
     userConfig: {
-      type: Object
+      type: Object,
     },
     globalValue: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   computed: {
     configName() {
@@ -76,8 +73,9 @@ export default {
       return this.userConfig[filterConfigType(this.configName)];
     },
     configByOrder() {
-      return this.currentConfig.config.sort((a, b) => (a.order - b.order));
-    }
+      // eslint-disable-next-line
+      return this.currentConfig.config.sort((a, b) => a.order - b.order);
+    },
   },
   methods: {
     editorComponent(type) {
@@ -110,11 +108,11 @@ export default {
         return true;
       }
       return false;
-    }
+    },
   },
   data() {
     return {
-      categoryDisplay: {}
+      categoryDisplay: {},
     };
   },
   watch: {
@@ -123,8 +121,8 @@ export default {
         this.$nextTick(() => {
           this.$refs.mainPanel.scrollTo(0, 0);
         });
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

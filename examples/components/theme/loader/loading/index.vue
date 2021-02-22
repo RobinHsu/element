@@ -1,21 +1,21 @@
 <style>
-  .loadingClass {
-    z-index: 0!important;
-    .el-loading-spinner {
-      top: 0%;
-      margin-top: 30%;
-    }
+.loadingClass {
+  z-index: 0 !important;
+
+  .el-loading-spinner {
+    top: 0%;
+    margin-top: 30%;
   }
+}
 </style>
 <script>
-
 import bus from '../../../../bus.js';
 import './progress.js';
 
 export default {
   data() {
     return {
-      count: 0
+      count: 0,
     };
   },
   created() {
@@ -30,6 +30,6 @@ export default {
         this.$bar.finish();
       }
     });
-  }
+  },
 };
 </script>

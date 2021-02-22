@@ -71,10 +71,13 @@
     "vue": "^2.5.17"
   },
   "devDependencies": {
+    "@midea/vue-svg-loader": "^0.16.0",
     "@vue/component-compiler-utils": "^2.6.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
     "algoliasearch": "^3.24.5",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^7.1.5",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-istanbul": "^4.1.1",
@@ -97,6 +100,8 @@
     "eslint-loader": "^2.0.0",
     "eslint-plugin-html": "^4.0.1",
     "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.5.0",
     "file-loader": "^1.1.11",
     "file-save": "^0.2.0",
     "gulp": "^4.0.0",

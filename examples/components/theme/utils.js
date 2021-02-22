@@ -1,6 +1,6 @@
-export const isEmptyObject = (obj) => (JSON.stringify(obj) === '{}');
+export const isEmptyObject = obj => JSON.stringify(obj) === '{}';
 
-export const getThemeConfigObject = (config) => {
+export const getThemeConfigObject = config => {
   try {
     const conf = JSON.parse(config);
     const { global, local } = conf;

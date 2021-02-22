@@ -12,7 +12,7 @@ const defaults = {
   fullscreen: true,
   body: false,
   lock: false,
-  customClass: ''
+  customClass: '',
 };
 
 let fullscreenLoading;
@@ -24,17 +24,19 @@ LoadingConstructor.prototype.close = function() {
   if (this.fullscreen) {
     fullscreenLoading = undefined;
   }
-  afterLeave(this, _ => {
-    const target = this.fullscreen || this.body
-      ? document.body
-      : this.target;
-    removeClass(target, 'el-loading-parent--relative');
-    removeClass(target, 'el-loading-parent--hidden');
-    if (this.$el && this.$el.parentNode) {
-      this.$el.parentNode.removeChild(this.$el);
-    }
-    this.$destroy();
-  }, 300);
+  afterLeave(
+    this,
+    () => {
+      const target = this.fullscreen || this.body ? document.body : this.target;
+      removeClass(target, 'el-loading-parent--relative');
+      removeClass(target, 'el-loading-parent--hidden');
+      if (this.$el && this.$el.parentNode) {
+        this.$el.parentNode.removeChild(this.$el);
+      }
+      this.$destroy();
+    },
+    300
+  );
   this.visible = false;
 };
 
@@ -48,13 +50,15 @@ const addStyle = (options, parent, instance) => {
     instance.originalPosition = getStyle(document.body, 'position');
     ['top', 'left'].forEach(property => {
       let scroll = property === 'top' ? 'scrollTop' : 'scrollLeft';
-      maskStyle[property] = options.target.getBoundingClientRect()[property] +
+      maskStyle[property] =
+        options.target.getBoundingClientRect()[property] +
         document.body[scroll] +
         document.documentElement[scroll] +
         'px';
     });
     ['height', 'width'].forEach(property => {
-      maskStyle[property] = options.target.getBoundingClientRect()[property] + 'px';
+      maskStyle[property] =
+        options.target.getBoundingClientRect()[property] + 'px';
     });
   } else {
     instance.originalPosition = getStyle(parent, 'position');
@@ -83,11 +87,14 @@ const Loading = (options = {}) => {
   let parent = options.body ? document.body : options.target;
   let instance = new LoadingConstructor({
     el: document.createElement('div'),
-    data: options
+    data: options,
   });
 
   addStyle(options, parent, instance);
-  if (instance.originalPosition !== 'absolute' && instance.originalPosition !== 'fixed') {
+  if (
+    instance.originalPosition !== 'absolute' &&
+    instance.originalPosition !== 'fixed'
+  ) {
     addClass(parent, 'el-loading-parent--relative');
   }
   if (options.fullscreen && options.lock) {

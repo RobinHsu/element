@@ -4,11 +4,11 @@ export default {
   props: {
     span: {
       type: Number,
-      default: 24
+      default: 24,
     },
     tag: {
       type: String,
-      default: 'div'
+      default: 'div',
     },
     offset: Number,
     pull: Number,
@@ -17,7 +17,7 @@ export default {
     sm: [Number, Object],
     md: [Number, Object],
     lg: [Number, Object],
-    xl: [Number, Object]
+    xl: [Number, Object],
   },
 
   computed: {
@@ -27,7 +27,7 @@ export default {
         parent = parent.$parent;
       }
       return parent ? parent.gutter : 0;
-    }
+    },
   },
   render(h) {
     let classList = [];
@@ -63,9 +63,13 @@ export default {
       }
     });
 
-    return h(this.tag, {
-      class: ['el-col', classList],
-      style
-    }, this.$slots.default);
-  }
+    return h(
+      this.tag,
+      {
+        class: ['el-col', classList],
+        style,
+      },
+      this.$slots.default
+    );
+  },
 };

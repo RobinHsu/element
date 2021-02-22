@@ -1,14 +1,16 @@
 export default {
   data() {
     return {
-      hoverOption: -1
+      hoverOption: -1,
     };
   },
 
   computed: {
     optionsAllDisabled() {
-      return this.options.filter(option => option.visible).every(option => option.disabled);
-    }
+      return this.options
+        .filter(option => option.visible)
+        .every(option => option.disabled);
+    },
   },
 
   watch: {
@@ -19,7 +21,7 @@ export default {
       this.options.forEach(option => {
         option.hover = this.hoverOption === option;
       });
-    }
+    },
   },
 
   methods: {
@@ -42,13 +44,15 @@ export default {
           }
         }
         const option = this.options[this.hoverIndex];
-        if (option.disabled === true ||
+        if (
+          option.disabled === true ||
           option.groupDisabled === true ||
-          !option.visible) {
+          !option.visible
+        ) {
           this.navigateOptions(direction);
         }
         this.$nextTick(() => this.scrollToOption(this.hoverOption));
       }
-    }
-  }
+    },
+  },
 };

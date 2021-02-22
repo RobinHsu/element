@@ -1,4 +1,4 @@
-const VALUES_REG = /,(?![^\(]*\))/;
+const VALUES_REG = /,(?![^(]*\))/;
 const PARTS_REG = /\s(?![^(]*\))/;
 const LENGTH_REG = /^[0-9]+[a-zA-Z%]+?$/;
 
@@ -12,7 +12,7 @@ const parseValue = str => {
     .filter(n => n !== 'inset')
     .filter(n => n !== color)
     .map(toNum);
-  const [ offsetX, offsetY, blurRadius, spreadRadius ] = nums;
+  const [offsetX, offsetY, blurRadius, spreadRadius] = nums;
 
   return {
     inset,
@@ -20,7 +20,7 @@ const parseValue = str => {
     offsetY,
     blurRadius,
     spreadRadius,
-    color
+    color,
   };
 };
 
@@ -31,17 +31,18 @@ const stringifyValue = obj => {
     offsetY = 0,
     blurRadius = 0,
     spreadRadius,
-    color
+    color,
   } = obj || {};
 
   return [
-    (inset ? 'inset' : null),
+    inset ? 'inset' : null,
     offsetX,
     offsetY,
     blurRadius,
     spreadRadius,
-    color
-  ].filter(v => v !== null && v !== undefined)
+    color,
+  ]
+    .filter(v => v !== null && v !== undefined)
     .map(toPx)
     .map(s => ('' + s).trim())
     .join(' ');
@@ -53,7 +54,11 @@ const toNum = v => {
   const n = parseFloat(v);
   return !isNaN(n) ? n : v;
 };
-const toPx = n => typeof n === 'number' && n !== 0 ? (n + 'px') : n;
+const toPx = n => (typeof n === 'number' && n !== 0 ? n + 'px' : n);
 
-export const parse = str => str.split(VALUES_REG).map(s => s.trim()).map(parseValue);
+export const parse = str =>
+  str
+    .split(VALUES_REG)
+    .map(s => s.trim())
+    .map(parseValue);
 export const stringify = arr => arr.map(stringifyValue).join(', ');
