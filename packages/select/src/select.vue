@@ -964,6 +964,7 @@ export default {
 
     this.$on('handleOptionClick', this.handleOptionSelect);
     this.$on('setSelected', this.setSelected);
+    window.addEventListener('jqTriggerClosePop', this.handleClose, false);
   },
 
   mounted() {
@@ -995,6 +996,7 @@ export default {
   },
 
   beforeDestroy() {
+    window.removeEventListener('jqTriggerClosePop', this.handleClose);
     if (this.$el && this.handleResize)
       removeResizeListener(this.$el, this.handleResize);
   },

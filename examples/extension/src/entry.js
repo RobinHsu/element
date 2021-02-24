@@ -4,4 +4,3 @@ if (!window.ElementThemeRollerInit) {
   window.ElementThemeRollerInit = true;
   init();
 }
-

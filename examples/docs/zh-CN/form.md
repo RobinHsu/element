@@ -9,7 +9,7 @@
 :::demo 在 Form 组件中，每一个表单域由一个 Form-Item 组件构成，表单域中可以放置各种类型的表单控件，包括 Input、Select、Checkbox、Radio、Switch、DatePicker、TimePicker
 ```html
 <el-form ref="form" :model="form" label-width="80px">
-  <el-form-item label="活动名称">
+  <el-form-item label="活动名称" labelHint="就是个名称">
     <el-input v-model="form.name"></el-input>
   </el-form-item>
   <el-form-item label="活动区域">
@@ -635,6 +635,7 @@ W3C 标准中有如下[规定](https://www.w3.org/MarkUp/html-spec/html-spec_8.h
 | show-message  | 是否显示校验错误信息 | boolean | — | true |
 | inline-message  | 以行内形式展示校验信息 | boolean | — | false |
 | size  | 用于控制该表单域下组件的尺寸 | string | medium / small / mini | - |
+| labelHint | label上显示title | string | - | - |
 
 ### Form-Item Slot
 | name | 说明 |

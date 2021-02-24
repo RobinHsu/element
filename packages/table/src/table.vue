@@ -496,6 +496,7 @@ export default {
       this.bodyWrapper.addEventListener('scroll', this.syncPostion, {
         passive: true,
       });
+      window.addEventListener('resize', this.handlerSize, false);
       if (this.fit) {
         addResizeListener(this.$el, this.resizeListener);
       }
@@ -505,6 +506,7 @@ export default {
       this.bodyWrapper.removeEventListener('scroll', this.syncPostion, {
         passive: true,
       });
+      window.removeEventListener('resize', this.handlerSize);
       if (this.fit) {
         removeResizeListener(this.$el, this.resizeListener);
       }
@@ -547,6 +549,10 @@ export default {
     toggleAllSelection() {
       this.store.commit('toggleAllSelection');
     },
+
+    handlerSize: throttle(50, true, function() {
+      this.doLayout();
+    }),
   },
 
   computed: {
@@ -693,8 +699,16 @@ export default {
 
     data: {
       immediate: true,
-      handler(value) {
+      handler(value, oldValue) {
         this.store.commit('setData', value);
+        if (
+          (value && !oldValue) ||
+          (value && oldValue && value.length !== oldValue.length)
+        ) {
+          this.$nextTick(() => {
+            this.handlerSize();
+          });
+        }
       },
     },
 

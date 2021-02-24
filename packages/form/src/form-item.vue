@@ -18,6 +18,7 @@
       :update-all="form.labelWidth === 'auto'"
     >
       <label
+        :title="labelHint"
         :for="labelFor"
         class="el-form-item__label"
         :style="labelStyle"
@@ -93,6 +94,10 @@ export default {
       default: true,
     },
     size: String,
+    labelHint: {
+      type: String,
+      default: '',
+    },
   },
   components: {
     // use this component to calculate auto width
@@ -191,7 +196,7 @@ export default {
       return this.elFormItemSize || (this.$ELEMENT || {}).size;
     },
     isEmpty() {
-      return !this.fieldValue;
+      return !this.fieldValue || !this.fieldValue.length;
     },
   },
   data() {
@@ -327,6 +332,7 @@ export default {
       if (rules.length || this.required !== undefined) {
         this.$on('el.form.blur', this.onFieldBlur);
         this.$on('el.form.change', this.onFieldChange);
+        this.$on('el.form.clearValidate', this.clearValidate);
       }
     },
     removeValidateEvents() {

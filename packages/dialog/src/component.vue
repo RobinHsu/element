@@ -5,6 +5,7 @@
     @after-leave="afterLeave"
   >
     <div
+      v-dialogDrag="drag"
       v-show="visible"
       class="el-dialog__wrapper"
       @click.self="handleWrapperClick"
@@ -20,9 +21,9 @@
           customClass,
         ]"
         ref="dialog"
-        :style="style"
+        :style="computedStyle"
       >
-        <div class="el-dialog__header">
+        <div class="el-dialog__header" v-if="showHeader">
           <slot name="title">
             <span class="el-dialog__title">{{ title }}</span>
           </slot>
@@ -49,11 +50,14 @@
 import Popup from 'element-ui/src/utils/popup';
 import Migrating from 'element-ui/src/mixins/migrating';
 import emitter from 'element-ui/src/mixins/emitter';
+import dialogDrag from './dialogDrag';
 
 export default {
   name: 'ElDialog',
 
   mixins: [Popup, emitter, Migrating],
+
+  directives: { dialogDrag },
 
   props: {
     title: {
@@ -116,6 +120,33 @@ export default {
     },
 
     destroyOnClose: Boolean,
+
+    showHeader: {
+      type: Boolean,
+      default: true,
+    },
+
+    dragOptions: {
+      type: Object,
+      default: () => ({
+        canDrag: true, // 配置 能否拖动
+        isRestorePosition: true, // 重新打开是否还原位置
+        handlingBorders: false, // 配置 是否处理边界
+      }),
+    },
+
+    size: {
+      type: String,
+      default: 'default',
+      validator(val) {
+        return ['large', 'medium', 'default', 'small', 'mini'].includes(val);
+      },
+    },
+
+    bodyStyle: {
+      type: Object,
+      default: () => {},
+    },
   },
 
   data() {
@@ -160,6 +191,35 @@ export default {
       }
       return style;
     },
+
+    computedStyle() {
+      return {
+        ...this.style,
+        width: this.fullscreen ? undefined : this.bodyWidth,
+        ...this.bodyStyle,
+      };
+    },
+
+    bodyWidth() {
+      if (this.width) return this.width;
+
+      switch (this.size) {
+        case 'large':
+          return '900px';
+        case 'medium':
+          return '658px';
+        case 'default':
+          return '462px';
+      }
+
+      return '420px';
+    },
+    drag() {
+      return {
+        ...this.dragOptions,
+        canDrag: this.fullscreen ? false : this.dragOptions.canDrag,
+      };
+    },
   },
 
   methods: {
@@ -198,6 +258,18 @@ export default {
     afterLeave() {
       this.$emit('closed');
     },
+  },
+
+  created() {
+    if (this.dragOptions.isRestorePosition === false) return;
+    this.$watch('visible', val => {
+      if (val) return;
+      setTimeout(() => {
+        let dragDom = this.$refs.dialog;
+        dragDom.style.left = this.computedStyle.left || '';
+        dragDom.style.top = this.computedStyle.top || '';
+      }, 300);
+    });
   },
 
   mounted() {

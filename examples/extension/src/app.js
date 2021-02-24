@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import App from './editor/index';
 import Element from 'main/index.js';
-import 'packages/theme-chalk/src/index.scss';
+// import 'packages/theme-chalk/src/index.scss';
+import '../../themes/gppm';
 
 export default () => {
   Vue.use(Element, { zIndex: 100000 });
@@ -12,7 +13,8 @@ export default () => {
     console.log(arguments);
   };
 
-  new Vue({ // eslint-disable-line
-    render: h => h(App)
+  new Vue({
+    // eslint-disable-line
+    render: h => h(App),
   }).$mount(root);
 };

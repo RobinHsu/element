@@ -23,7 +23,7 @@ export default {
     if (!type) return null;
 
     const spinClass = {
-      'is-spin': spin || type === 'loading',
+      'is-spin': spin || type.indexOf('loading') === 0,
     };
 
     const svg = svgIcon[camelCase(type)];
