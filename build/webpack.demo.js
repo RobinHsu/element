@@ -15,31 +15,35 @@ const isPlay = !!process.env.PLAY_ENV;
 
 const webpackConfig = {
   mode: process.env.NODE_ENV,
-  entry: isProd ? {
-    docs: './examples/entry.js'
-  } : (isPlay ? './examples/play.js' : './examples/entry.js'),
+  entry: isProd
+    ? {
+        docs: './examples/entry.js',
+      }
+    : isPlay
+    ? './examples/play.js'
+    : './examples/entry.js',
   output: {
     path: path.resolve(process.cwd(), './examples/element-ui/'),
     publicPath: process.env.CI_ENV || '',
     filename: '[name].[hash:7].js',
-    chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
+    chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js',
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: config.alias,
-    modules: ['node_modules']
+    modules: ['node_modules'],
   },
   devServer: {
     host: '0.0.0.0',
     port: 8085,
     publicPath: '/',
-    hot: true
+    hot: true,
   },
   performance: {
-    hints: false
+    hints: false,
   },
   stats: {
-    children: false
+    children: false,
   },
   module: {
     rules: [
@@ -47,30 +51,30 @@ const webpackConfig = {
         enforce: 'pre',
         test: /\.(vue|jsx?)$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader'
+        loader: 'eslint-loader',
       },
       {
         test: /\.(jsx?|babel|es6)$/,
         include: process.cwd(),
         exclude: config.jsexclude,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           compilerOptions: {
-            preserveWhitespace: false
-          }
-        }
+            preserveWhitespace: false,
+          },
+        },
       },
       {
         test: /\.(scss|css)$/,
         use: [
           isProd ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader',
-          'sass-loader'
-        ]
+          'sass-loader',
+        ],
       },
       {
         test: /\.md$/,
@@ -79,14 +83,14 @@ const webpackConfig = {
             loader: 'vue-loader',
             options: {
               compilerOptions: {
-                preserveWhitespace: false
-              }
-            }
+                preserveWhitespace: false,
+              },
+            },
           },
           {
-            loader: path.resolve(__dirname, './md-loader/index.js')
-          }
-        ]
+            loader: path.resolve(__dirname, './md-loader/index.js'),
+          },
+        ],
       },
       {
         test: /\.(otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
@@ -94,8 +98,8 @@ const webpackConfig = {
         // todo: 这种写法有待调整
         query: {
           limit: 10000,
-          name: path.posix.join('static', '[name].[hash:7].[ext]')
-        }
+          name: path.posix.join('static', '[name].[hash:7].[ext]'),
+        },
       },
       {
         test: /\.svg(\?.*)?$/,
@@ -104,12 +108,12 @@ const webpackConfig = {
             resourceQuery: /vue/,
             use: [
               {
-                loader: 'babel-loader'
+                loader: 'babel-loader',
               },
               {
-                loader: '@midea/vue-svg-loader'
-              }
-            ]
+                loader: '@midea/vue-svg-loader',
+              },
+            ],
           },
           {
             use: [
@@ -117,60 +121,58 @@ const webpackConfig = {
                 loader: 'url-loader',
                 options: {
                   limit: 10000,
-                  name: path.posix.join('static', '[name].[hash:7].[ext]')
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                  name: path.posix.join('static', '[name].[hash:7].[ext]'),
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: './examples/index.tpl',
       filename: './index.html',
-      favicon: './examples/favicon.ico'
+      favicon: './examples/favicon.ico',
     }),
-    new CopyWebpackPlugin([
-      { from: 'examples/versions.json' }
-    ]),
+    new CopyWebpackPlugin([{ from: 'examples/versions.json' }]),
     new ProgressBarPlugin(),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
-      'process.env.FAAS_ENV': JSON.stringify(process.env.FAAS_ENV)
+      'process.env.FAAS_ENV': JSON.stringify(process.env.FAAS_ENV),
     }),
     new webpack.LoaderOptionsPlugin({
       vue: {
         compilerOptions: {
-          preserveWhitespace: false
-        }
-      }
-    })
+          preserveWhitespace: false,
+        },
+      },
+    }),
   ],
   optimization: {
-    minimizer: []
+    minimizer: [],
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
 };
 
 if (isProd) {
   webpackConfig.externals = {
     vue: 'Vue',
     'vue-router': 'VueRouter',
-    'highlight.js': 'hljs'
+    'highlight.js': 'hljs',
   };
   webpackConfig.plugins.push(
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash:7].css'
+      filename: '[name].[contenthash:7].css',
     })
   );
   webpackConfig.optimization.minimizer.push(
     new UglifyJsPlugin({
       cache: true,
       parallel: true,
-      sourceMap: false
+      sourceMap: false,
     }),
     new OptimizeCSSAssetsPlugin({})
   );
@@ -180,9 +182,9 @@ if (isProd) {
       vendor: {
         test: /\/src\//,
         name: 'element-ui',
-        chunks: 'all'
-      }
-    }
+        chunks: 'all',
+      },
+    },
   };
   webpackConfig.devtool = false;
 }

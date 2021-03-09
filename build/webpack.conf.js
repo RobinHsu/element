@@ -8,7 +8,7 @@ const config = require('./config');
 module.exports = {
   mode: 'production',
   entry: {
-    app: ['./src/index.js']
+    app: ['./src/index.js'],
   },
   output: {
     path: path.resolve(process.cwd(), './lib'),
@@ -19,31 +19,31 @@ module.exports = {
     libraryExport: 'default',
     library: 'ELEMENT',
     umdNamedDefine: true,
-    globalObject: 'typeof self !== \'undefined\' ? self : this'
+    globalObject: "typeof self !== 'undefined' ? self : this",
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
-    alias: config.alias
+    alias: config.alias,
   },
   externals: {
-    vue: config.vue
+    vue: config.vue,
   },
   optimization: {
     minimizer: [
       new TerserPlugin({
         terserOptions: {
           output: {
-            comments: false
-          }
-        }
-      })
-    ]
+            comments: false,
+          },
+        },
+      }),
+    ],
   },
   performance: {
-    hints: false
+    hints: false,
   },
   stats: {
-    children: false
+    children: false,
   },
   module: {
     rules: [
@@ -51,21 +51,45 @@ module.exports = {
         test: /\.(jsx?|babel|es6)$/,
         include: process.cwd(),
         exclude: config.jsexclude,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           compilerOptions: {
-            preserveWhitespace: false
-          }
-        }
-      }
-    ]
+            preserveWhitespace: false,
+          },
+        },
+      },
+      {
+        test: /\.svg(\?.*)?$/,
+        oneOf: [
+          {
+            resourceQuery: /vue/,
+            use: [
+              {
+                loader: 'babel-loader',
+              },
+              {
+                loader: '@midea/vue-svg-loader',
+              },
+            ],
+          },
+          {
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  limit: 10000,
+                  name: path.posix.join('static', '[name].[hash:7].[ext]'),
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
-  plugins: [
-    new ProgressBarPlugin(),
-    new VueLoaderPlugin()
-  ]
+  plugins: [new ProgressBarPlugin(), new VueLoaderPlugin()],
 };
