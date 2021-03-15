@@ -163,7 +163,7 @@ const components = [
   Avatar,
   Drawer,
   Popconfirm,
-  CollapseTransition,
+  CollapseTransition
 ];
 
 const install = function(Vue, opts = {}) {
@@ -179,7 +179,7 @@ const install = function(Vue, opts = {}) {
 
   Vue.prototype.$ELEMENT = {
     size: opts.size || '',
-    zIndex: opts.zIndex || 2000,
+    zIndex: opts.zIndex || 2000
   };
 
   Vue.prototype.$loading = Loading.service;
@@ -189,6 +189,7 @@ const install = function(Vue, opts = {}) {
   Vue.prototype.$prompt = MessageBox.prompt;
   Vue.prototype.$notify = Notification;
   Vue.prototype.$message = Message;
+
 };
 
 /* istanbul ignore if */
@@ -197,7 +198,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '2.15.0-gpm',
+  version: '2.15.0-gpm.1',
   locale: locale.use,
   i18n: locale.i18n,
   install,
@@ -283,5 +284,5 @@ export default {
   CascaderPanel,
   Avatar,
   Drawer,
-  Popconfirm,
+  Popconfirm
 };

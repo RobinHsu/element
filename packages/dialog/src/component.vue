@@ -1,5 +1,6 @@
 <template>
   <transition
+    appear
     name="dialog-fade"
     @after-enter="afterEnter"
     @after-leave="afterLeave"
